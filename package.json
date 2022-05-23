@@ -5,7 +5,8 @@
   "main": "app.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify app.mjs -p esmify --s Astro > bundle.js"
+    "build1": "browserify app.mjs -p esmify --s LST > libraries/LST.min.js",
+    "build2": "browserify app.js --s Astro > libraries/Astro.min.js"
   },
   "repository": {
     "type": "git",

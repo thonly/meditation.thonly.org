@@ -1,12 +1,26 @@
 <html>
     <head>
-        <title>Meditation Guide</title>
+        <title>Meditation</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="index.css">
-        <script src="bundle.js"></script>
+        <script src="libraries/LST.min.js"></script>
+        <script src="libraries/Astro.min.js"></script>
+        <script src="libraries/Horoscope.min.js"></script>
         <script src="index.js" type="module"></script>
     </head>
     <body>
-        
+        <head>
+            <h1 id="synodic"></h1>
+            <h2 id="sidereal"></h2>
+        </head>
+        <main>
+            <figure id="horoscope"></figure>
+            <h1 id="timer"></h1>
+            <button id="start" onclick="startTimer()">Start</button>
+            <button id="stop" onclick="stopTimer()">Stop</button>
+        </main>
+        <footer>
+            <h6>THonly™</h6>
+        </footer>
     </body>
 </html>
