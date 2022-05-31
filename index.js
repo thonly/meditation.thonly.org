@@ -7,8 +7,10 @@ let timer = null;
 
 window.startTimer = () => {
     const tarot = document.getElementById('tarot');
-    tarot.src = getMajorArcana();
+    const arcanus = getMajorArcana();
+    tarot.src = arcanus.card;
     tarot.scrollIntoView({ behavior: "smooth", block: "start", inline: "center" });
+    tarot.style.transform = `rotate(${ arcanus.orientation ? 180 : 0 }deg)`;
 
     const tao = Tao();
     document.getElementById('chapter').textContent = "Chapter " + tao.number;
