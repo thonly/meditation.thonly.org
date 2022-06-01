@@ -6,5 +6,6 @@ export function getMajorArcana() {
 }
 
 export function getMinorArcana() {
-
+    const suits = ['cups', 'pentacles', 'swords', 'wands'];
+    return { orientation: getRandomInteger(0, 1), card: `datastore/tarot/minor/${suits[getRandomInteger(0, 3)]}/${getRandomInteger(1, 14)}.jpeg` };
 }

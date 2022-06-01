@@ -1,25 +1,19 @@
 import { createNatalChart, animateTransit } from './astro/chart.mjs';
 import { getDuration } from './astro/timer.mjs';
-import { getMajorArcana } from './datastore/tarot/tarot.mjs'; 
-import Tao from './datastore/tao.mjs';
+import { renderTarot, renderTao } from './datastore/render.mjs'; 
 
 let timer = null;
 
-window.startTimer = () => {
-    const tarot = document.getElementById('tarot');
-    const arcanus = getMajorArcana();
-    tarot.src = arcanus.card;
-    tarot.scrollIntoView({ behavior: "smooth", block: "start", inline: "center" });
-    tarot.style.transform = `rotate(${ arcanus.orientation ? 180 : 0 }deg)`;
-
-    const tao = Tao();
-    document.getElementById('chapter').textContent = "Chapter " + tao.number;
-    document.getElementById('tao').innerHTML = tao.chapter;
+window.startTimer = (minutes=0) => {
+    renderTarot();
+    renderTao();
 
     const startTime = new Date();
+    const alarmTime = new Date(startTime.getTime() + minutes*60000);
     clearInterval(timer);
     timer = setInterval(() => {
         document.getElementById('timer').textContent = getDuration(startTime);
+        if (new Date() === alarmTime) console.log("ALARM!");
     }, 1000);
 }
 
@@ -35,3 +29,8 @@ window.onload = () => {
         animateTransit();
     }, 1000);
 };
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-KMZJNVG8GT');

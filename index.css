@@ -1,7 +1,12 @@
 body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 20px 20px;
+    box-sizing: border-box;
     text-align: center;
 }
 
 img {
-    width: 400px;
+    width: calc(100vw - 2*20px);
 }
