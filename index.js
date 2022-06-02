@@ -1,8 +1,8 @@
+import { getFormattedTime, getDuration } from '/utils.mjs';
 import { createNatalChart } from '/astro/chart.mjs';
 import { renderAstro } from '/astro/render.mjs';
 import { renderTarot } from '/tarot/render.mjs'; 
 import { renderTao } from '/tao/render.mjs';
-import { getDuration, getAlarmTime } from '/astro/timer.mjs';
 import { playAlarm } from '/music/alarm.mjs';
 
 let timer = null;
@@ -13,7 +13,7 @@ window.startTimer = (minutes=0) => {
     renderTao();
 
     const startTime = new Date();
-    const alarmTime = getAlarmTime(startTime, minutes);
+    const alarmTime = getFormattedTime(minutes*60);
     timer = setInterval(() => {
         const duration = getDuration(startTime);
         document.getElementById('timer').textContent = duration;
