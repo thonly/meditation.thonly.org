@@ -17,8 +17,11 @@ export function createNatalChart(elementID) {
 }
 
 export function animateTransit() {
-  const { planets, cusps } = transitHoroscope();
+  const { planets, cusps, Sun, Moon, Earth } = transitHoroscope();
+  
   horoscope.animate({ planets, cusps }, 1, false, () => {
     //console.log("Animation finished");
   });
+
+  return { Sun, Moon, Earth };
 }

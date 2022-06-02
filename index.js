@@ -1,33 +1,34 @@
-import { createNatalChart, animateTransit } from './astro/chart.mjs';
-import { getDuration } from './astro/timer.mjs';
-import { renderTarot, renderTao } from './datastore/render.mjs'; 
+import { createNatalChart } from '/astro/chart.mjs';
+import { renderAstro } from '/astro/render.mjs';
+import { renderTarot } from '/tarot/render.mjs'; 
+import { renderTao } from '/tao/render.mjs';
+import { getDuration, getAlarmTime } from '/astro/timer.mjs';
+import { playAlarm } from '/music/alarm.mjs';
 
 let timer = null;
 
 window.startTimer = (minutes=0) => {
+    clearInterval(timer);
     renderTarot();
     renderTao();
 
     const startTime = new Date();
-    const alarmTime = new Date(startTime.getTime() + minutes*60000);
-    clearInterval(timer);
+    const alarmTime = getAlarmTime(startTime, minutes);
     timer = setInterval(() => {
-        document.getElementById('timer').textContent = getDuration(startTime);
-        if (new Date() === alarmTime) console.log("ALARM!");
+        const duration = getDuration(startTime);
+        document.getElementById('timer').textContent = duration;
+        if (duration === alarmTime) playAlarm();
     }, 1000);
 }
 
 window.stopTimer = () => {
     clearInterval(timer);
+    //playAlarm();
 }
 
 window.onload = () => {
     createNatalChart('horoscope');
-    setInterval(() => {
-        document.getElementById('synodic').textContent = new Date().toLocaleTimeString();
-        document.getElementById('sidereal').textContent = LST.getLST();
-        animateTransit();
-    }, 1000);
+    setInterval(renderAstro, 1000);
 };
 
 window.dataLayer = window.dataLayer || [];

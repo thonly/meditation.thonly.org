@@ -1,5 +1,13 @@
 export function getDuration(startTime) {
-  const totalSeconds = (new Date() - startTime) / 1000;
+  return getFormatedTime((new Date() - startTime) / 1000);
+}
+
+export function getAlarmTime(startTime, minutes) {
+  const endTime = new Date(startTime.getTime() + minutes*60000);
+  return getFormatedTime((endTime - new Date()) / 1000);
+}
+
+function getFormatedTime(totalSeconds) {
   const h = Math.floor(totalSeconds / 3600);
   const m = Math.floor(totalSeconds % 3600 / 60);
   const s = Math.floor(totalSeconds % 3600 % 60);

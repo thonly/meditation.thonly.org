@@ -17,7 +17,7 @@
                 <h1 id="synodic"></h1>
             </section>
             <section>
-                <input type="datetime-local" />
+                <input type="datetime-local" placeholder="Date and Time" />
                 <br />
                 <input type="search" placeholder="City, Country" />
                 <button onclick="setBirth()">Set Birth</button>
@@ -26,6 +26,10 @@
         <main>
             <figure id="horoscope"></figure>
             <h1 id="sidereal"></h1>
+            <p>Sun: <span id="sun-sign"></span></p>
+            <p>Moon: <span id="moon-sign"></span></p>
+            <p>Earth: <span id="earth-as"></span></p>
+            <p style="display:none">Earth: <span id="earth-mc"></span></p>
             <img id="major" />
             <img id="minor" />
             <h2 id="chapter"></h2>
@@ -34,7 +38,7 @@
         <footer>
             <h1 id="timer"></h1>
             <button onclick="startTimer(0)">Infinity</button>
-            <button onclick="stopTimer()">Stop</button>
+            <button onclick="stopTimer()">STOP</button>
             <br />
             <button onclick="startTimer(15)">15 Minutes</button>
             <button onclick="startTimer(30)">30 Minutes</button>
@@ -43,7 +47,7 @@
             <button onclick="startTimer(60)">1 Hour</button>
             <button onclick="startTimer(60*2)">2 Hours</button>
             <button onclick="startTimer(60*3)">3 Hours</button>
-            <h6>THonly™</h6>
+            <h6><a href="https://thonly.org">THonly™</a></h6>
         </footer>
     </body>
 </html>

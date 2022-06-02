@@ -10,3 +10,7 @@ body {
 img {
     width: calc(100vw - 2*20px);
 }
+
+span {
+    font-weight: bold;
+}
