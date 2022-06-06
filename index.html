@@ -2,6 +2,7 @@
     <head>
         <title>Adam Kadmon</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="logo.png">
         <link rel="stylesheet" href="index.css">
         <script src="libraries/LST.min.js"></script>
         <script src="libraries/Astro.min.js"></script>
@@ -30,6 +31,7 @@
             <p>Moon: <span id="moon-sign"></span></p>
             <p>Earth: <span id="earth-as"></span></p>
             <p style="display:none">Earth: <span id="earth-mc"></span></p>
+            <aside id="numerology"></aside>
             <img id="major" />
             <img id="minor" />
             <h2 id="chapter"></h2>
@@ -37,16 +39,17 @@
         </main>
         <footer>
             <h1 id="timer"></h1>
-            <button onclick="startTimer(0)">Infinity</button>
-            <button onclick="stopTimer()">STOP</button>
+            <button onclick="startTimer(this, 0)">Infinity</button>
+            <button onclick="pauseTimer(this)" disabled>Pause/Resume</button>
+            <button onclick="stopTimer(this)">STOP</button>
             <br />
-            <button onclick="startTimer(15)">15 Minutes</button>
-            <button onclick="startTimer(30)">30 Minutes</button>
-            <button onclick="startTimer(40)">40 Minutes</button>
+            <button onclick="startTimer(this, 15)">15 Minutes</button>
+            <button onclick="startTimer(this, 30)">30 Minutes</button>
+            <button onclick="startTimer(this, 40)">40 Minutes</button>
             <br />
-            <button onclick="startTimer(60)">1 Hour</button>
-            <button onclick="startTimer(60*2)">2 Hours</button>
-            <button onclick="startTimer(60*3)">3 Hours</button>
+            <button onclick="startTimer(this, 60)">1 Hour</button>
+            <button onclick="startTimer(this, 60*2)">2 Hours</button>
+            <button onclick="startTimer(this, 60*3)">3 Hours</button>
             <h6><a href="https://thonly.org">THonly™</a></h6>
         </footer>
     </body>

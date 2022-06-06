@@ -1,3 +1,7 @@
+html {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 body {
     width: 100vw;
     height: 100vh;
@@ -13,4 +17,14 @@ img {
 
 span {
     font-weight: bold;
+}
+
+aside {
+    font-size: 3rem;
+    color: blueviolet;
+    font-weight: bold;
+}
+
+a {
+    text-decoration-line: none;
 }

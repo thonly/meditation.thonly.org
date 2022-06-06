@@ -8,16 +8,22 @@ export function renderTarot() {
     const minorArcanus = getMinorArcana();
     major.src = majorArcanus.card;
     minor.src = minorArcanus.card;
-    major.style.transform = `rotate(${ majorArcanus.orientation ? 180 : 0 }deg)`;
-    minor.style.transform = `rotate(${ minorArcanus.orientation ? 180 : 0 }deg)`;
-    major.scrollIntoView({ behavior: "smooth", block: "start", inline: "center" });
+    major.style.transform = `rotate(${ majorArcanus.orientation ? 0 : 180 }deg)`;
+    minor.style.transform = `rotate(${ minorArcanus.orientation ? 0 : 180 }deg)`;
+
+    return majorArcanus.number + minorArcanus.number;
 }
 
 function getMajorArcana() {
-    return { orientation: getRandomInteger(0, 1), card: `tarot/major/${getRandomInteger(0, 21)}.jpeg` };
+    const orientation = getRandomInteger(0, 1);
+    const number = getRandomInteger(0, 21);
+    return { orientation, number: orientation ? number: -number, card: `tarot/major/${number}.jpeg` };
 }
 
 function getMinorArcana() {
-    const suits = ['cups', 'pentacles', 'swords', 'wands'];
-    return { orientation: getRandomInteger(0, 1), card: `tarot/minor/${suits[getRandomInteger(0, 3)]}/${getRandomInteger(1, 14)}.jpeg` };
+    const orientation = getRandomInteger(0, 1);
+    const suits = ['wands', 'pentacles', 'swords', 'cups'];
+    const suit = getRandomInteger(0, 3);
+    const number = getRandomInteger(1, 14);
+    return { orientation, number: orientation ? suit + number : -suit-number, card: `tarot/minor/${suits[suit]}/${number}.jpeg` };
 }

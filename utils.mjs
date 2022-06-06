@@ -4,17 +4,7 @@ export function getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-export function getDuration(startTime) {
-    return getFormattedTime((new Date() - startTime) / 1000);
-}
-
-// deprecated
-export function getAlarmTime(startTime, minutes) {
-    const endTime = new Date(startTime.getTime() + minutes*60000);
-    return getFormattedTime((endTime - new Date()) / 1000);
-}
-
-export function getFormattedTime(totalSeconds) {
+export function getFormattedDuration(totalSeconds) {
     const h = Math.floor(totalSeconds / 3600);
     const m = Math.floor(totalSeconds % 3600 / 60);
     const s = Math.floor(totalSeconds % 3600 % 60);
@@ -25,3 +15,16 @@ export function getFormattedTime(totalSeconds) {
 
     return `${hours}:${minutes}:${seconds}`;
 }
+
+export function getDigitalRoot(number) {
+    let sum = number
+    let arr = []
+    let reducer = (a,b) => parseInt(a) + parseInt(b)
+ 
+    while (sum > 9) {
+       arr = sum.toString().split("")
+       sum = arr.reduce(reducer)
+    }
+ 
+    return sum
+ }
