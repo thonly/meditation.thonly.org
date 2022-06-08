@@ -1,17 +1,17 @@
 import { getHoroscope } from './horoscope.mjs';
 const { Origin, Horoscope } = Astro;
 
-export function transitHoroscope(year, month, day, hour, minute) {
+export function transitHoroscope() {
     const date = new Date();
   
     const origin = new Origin({
-        year: year || date.getFullYear(),
-        month: month || date.getMonth(),
-        date: day || date.getDate(),
-        hour: hour || date.getHours(),
-        minute: minute || date.getMinutes(),
-        latitude: 36.7484123,
-        longitude: -119.7938046,
+        year: date.getFullYear(),
+        month: date.getMonth(),
+        date: date.getDate(),
+        hour: date.getHours(),
+        minute: date.getMinutes(),
+        latitude: localStorage.getItem('current-latitude'), //36.7484123,
+        longitude: localStorage.getItem('current-longitude') //-119.7938046
     });
   
     const horoscope = new Horoscope({
