@@ -44,7 +44,7 @@ export async function setBirth() {
     const date = new Date(document.getElementById('birth-date').value);
     const place = document.getElementById('birth-place');
     
-    const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(place.value)}&limit=5&appid=1356b68f4f9d57c3ee9c6733e41d3e34`);
+    const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(place.value)}&limit=5&appid=1356b68f4f9d57c3ee9c6733e41d3e34`);
     const location = await response.json();
 
     localStorage.setItem('birth-year', date.getFullYear());
