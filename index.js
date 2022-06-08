@@ -1,4 +1,5 @@
 import { getFormattedDuration, getDigitalRoot } from '/utils.mjs';
+import { getLocation } from './astro/location.mjs';
 import { createNatalChart } from '/astro/chart.mjs';
 import { renderAstro } from '/astro/render.mjs';
 import { renderTarot } from '/tarot/render.mjs'; 
@@ -45,8 +46,18 @@ window.stopTimer = () => {
 };
 
 window.onload = () => {
-    createNatalChart('horoscope');
-    setInterval(renderAstro, 1000);
+    navigator.geolocation.getCurrentPosition(async (position) => {
+        localStorage.setItem('latitude', localStorage.getItem('latitude') || position.coords.latitude);
+        localStorage.setItem('longitude', localStorage.getItem('longitude') || position.coords.longitude);
+
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=imperial&appid=1356b68f4f9d57c3ee9c6733e41d3e34`);
+        const weather = await response.json();
+        document.getElementById('location').textContent = weather.name + " | " + weather.main.feels_like + "°";
+        createNatalChart('horoscope', localStorage.getItem('latitude'), localStorage.getItem('longitude'));
+        setInterval(renderAstro, 1000, position.coords.latitude, position.coords.longitude);
+        
+        console.log(await getLocation("Kampot, Cambodia"));
+    });
 };
 
 window.dataLayer = window.dataLayer || [];
