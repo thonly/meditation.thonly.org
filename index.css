@@ -12,7 +12,7 @@ body {
 }
 
 img {
-    width: calc(100vw - 2*20px);
+    width: clamp(100px, calc(100vw - 2*20px), 500px);
 }
 
 span {
@@ -27,4 +27,8 @@ aside {
 
 a {
     text-decoration-line: none;
+}
+
+#pause, #stop {
+    text-transform: uppercase;
 }

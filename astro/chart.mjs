@@ -8,7 +8,8 @@ export function createNatalChart(elementID) {
     const transit = transitHoroscope();
     
     const element = document.getElementById(elementID);
-    const chart = new astrology.Chart(elementID, element.offsetWidth, element.offsetWidth);
+    const width = element.offsetWidth < 500 ? element.offsetWidth : 500;
+    const chart = new astrology.Chart(elementID, width, width);
     const radix = chart.radix({ planets, cusps });
     radix.addPointsOfInterest({ As, Mc, Ds, Ic });
     horoscope = radix.transit({ planets: transit.planets, cusps: transit.cusps }).aspects();

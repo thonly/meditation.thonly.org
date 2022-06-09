@@ -5,40 +5,70 @@ import { renderTao } from '/tao/render.mjs';
 import { playAlarm } from '/music/alarm.mjs';
 
 let timer = null;
-let button = null;
+let startButton = null;
+let startTime = null;
+let pauseDuration = null;
+let alarmDuration = null;
+let playing = true;
 const timerElement = document.getElementById('timer');
+const pauseButton = document.getElementById('pause');
+const stopButton = document.getElementById('stop');
 
 window.startTimer = (element, minutes=0) => {
     clearInterval(timer);
     timerElement.style.color = 'black';
+    pauseButton.disabled = false;
+    stopButton.disabled = false;
+    playing = true;
+    pauseButton.textContent = "Pause";
     element.disabled = true;
-    if (button) button.disabled = false;
-    button = element;
+    if (startButton) startButton.disabled = false;
+    startButton = element;
     
-    const startTime = new Date();
+    startTime = new Date();
     const numerology = document.getElementById('numerology');
     numerology.textContent = getDigitalRoot(startTime.getFullYear() + startTime.getMonth() + startTime.getDate() + renderTarot() + renderTao());
     numerology.scrollIntoView({ behavior: "smooth", block: "start", inline: "center" });
     
-    const alarmDuration = getFormattedDuration(minutes*60);
+    alarmDuration = getFormattedDuration(minutes*60);
+    runTimer(startTime, alarmDuration);
+};
+
+function runTimer(startTime, alarmDuration) {
     timer = setInterval(() => {
         const timerDuration = getFormattedDuration((new Date() - startTime) / 1000);
         timerElement.textContent = timerDuration;
         if (timerDuration === alarmDuration) {
             playAlarm();
             timerElement.style.color = 'red';
-            //button.disabled = false;
+            //startButton.disabled = false;
         }
     }, 1000);
+}
+
+window.pauseTimer = element => {
+    if (playing) {
+        pauseDuration = new Date() - startTime;
+        clearInterval(timer);
+        playing = false;
+        element.textContent = "Resume";
+    } else {
+        startTime = new Date() - pauseDuration;
+        runTimer(startTime, alarmDuration);
+        playing = true;
+        element.textContent = "Pause";
+    }
 };
 
-window.pauseTimer = () => {};
-
-window.stopTimer = () => {
-    clearInterval(timer);
-    button.disabled = false;
-    //timerElement.style.color = 'black';
+window.stopTimer = element => {
     //playAlarm();
+    clearInterval(timer);
+    startButton.disabled = false;
+    pauseButton.disabled = true;
+    stopButton.disabled = true;
+    playing = false;
+    pauseButton.textContent = "Pause";
+    //timerElement.style.color = 'black';
 };
 
 window.setBirth = setBirth;

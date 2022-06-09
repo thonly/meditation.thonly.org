@@ -33,6 +33,7 @@
             <p style="display:none">Earth: <span id="earth-mc"></span></p>
             <aside id="numerology"></aside>
             <img id="major" />
+            <br />
             <img id="minor" />
             <h2 id="chapter"></h2>
             <blockquote id="tao"></blockquote>
@@ -40,8 +41,8 @@
         <footer>
             <h1 id="timer"></h1>
             <button onclick="startTimer(this, 0)">Infinity</button>
-            <button onclick="pauseTimer(this)" disabled>Pause/Resume</button>
-            <button onclick="stopTimer(this)">STOP</button>
+            <button id="pause" onclick="pauseTimer(this)" disabled>Pause</button>
+            <button id="stop" onclick="stopTimer(this)" disabled>Stop</button>
             <br />
             <button onclick="startTimer(this, 15)">15 Minutes</button>
             <button onclick="startTimer(this, 30)">30 Minutes</button>
