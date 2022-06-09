@@ -19,18 +19,25 @@ export async function renderAstro(position) {
     localStorage.setItem('birth-latitude', localStorage.getItem('birth-latitude') || position.coords.latitude);
     localStorage.setItem('birth-longitude', localStorage.getItem('birth-longitude') || position.coords.longitude);
 
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=imperial&appid=1356b68f4f9d57c3ee9c6733e41d3e34`);
-    const weather = await response.json();
+    const weather = await getWeather();
     localStorage.setItem('birth-place', localStorage.getItem('birth-place') || weather.name + ", " + weather.sys.country);
-    document.getElementById('location').textContent = weather.name + " | " + weather.main.feels_like + "°";
     document.getElementById('birth-date').value = `${localStorage.getItem('birth-year')}-${String(+localStorage.getItem('birth-month')+1).padStart(2, '0')}-${String(localStorage.getItem('birth-day')).padStart(2, '0')}T${String(localStorage.getItem('birth-hour')).padStart(2, '0')}:${String(localStorage.getItem('birth-minute')).padStart(2, '0')}`;
     document.getElementById('birth-place').value = localStorage.getItem('birth-place');
     
     createNatalChart('horoscope');
-    setInterval(render, 1000);
+    setInterval(getAstro, 1000);
+    setInterval(getWeather, 1000*60); 
 }
 
-function render() {
+// api limit: 60 calls per minute
+async function getWeather() {
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${localStorage.getItem('current-latitude')}&lon=${localStorage.getItem('current-longitude')}&units=imperial&appid=1356b68f4f9d57c3ee9c6733e41d3e34`);
+    const weather = await response.json();
+    document.getElementById('location').textContent = weather.name + " | " + weather.main.feels_like + "°";
+    return weather;
+}
+
+function getAstro() {
     document.getElementById('synodic').textContent = new Date().toLocaleTimeString();
     document.getElementById('sidereal').textContent = LST.getLST();
     const { Sun, Moon, Earth } = animateTransit();
