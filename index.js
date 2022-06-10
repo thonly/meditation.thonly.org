@@ -2,7 +2,7 @@ import { getFormattedDuration, getDigitalRoot } from '/utils.mjs';
 import { renderAstro, setBirth } from '/astro/render.mjs';
 import { renderTarot } from '/tarot/render.mjs'; 
 import { renderTao } from '/tao/render.mjs';
-import { playAlarm } from '/music/alarm.mjs';
+import { playAlarm, playScaleInOrder, playScaleRandom } from '/music/sound.mjs';
 
 let timer = null;
 let startButton = null;
@@ -38,8 +38,15 @@ function runTimer(startTime, alarmDuration) {
     timer = setInterval(() => {
         const timerDuration = getFormattedDuration((new Date() - startTime) / 1000);
         timerElement.textContent = timerDuration;
+
+        if (alarmDuration < "01:00:00") {
+            document.body.style.backgroundColor = playScaleInOrder();
+        } else {
+            document.body.style.backgroundColor = playScaleRandom();
+        }
+
         if (timerDuration === alarmDuration) {
-            playAlarm();
+            //playAlarm();
             timerElement.style.color = 'red';
             //startButton.disabled = false;
         }
@@ -68,6 +75,7 @@ window.stopTimer = element => {
     stopButton.disabled = true;
     playing = false;
     pauseButton.textContent = "Pause";
+    document.body.style.backgroundColor = 'white';
     //timerElement.style.color = 'black';
 };
 
