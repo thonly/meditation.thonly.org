@@ -39,7 +39,7 @@ async function getWeather() {
 
 function getAstro() {
     document.getElementById('synodic').textContent = new Date().toLocaleTimeString();
-    document.getElementById('sidereal').textContent = LST.getLST();
+    document.getElementById('sidereal').textContent = LST.getLST(localStorage.getItem('current-longitude'));
     const { Sun, Moon, Earth } = animateTransit();
     document.getElementById('sun-sign').textContent = Sun.Sign.label + " in " + Sun.House.label;
     document.getElementById('moon-sign').textContent = Moon.Sign.label + " in " + Moon.House.label;

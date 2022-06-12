@@ -12,7 +12,7 @@ export function natalHoroscope() {
       longitude: localStorage.getItem('birth-longitude') //104.1767753
   });
 
-  const horoscope =  new Horoscope({
+  const horoscope = new Horoscope({
       origin,
       houseSystem: "whole-sign",
       zodiac: "tropical",
