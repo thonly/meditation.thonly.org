@@ -14,12 +14,13 @@ export async function renderAstro(position) {
     localStorage.setItem('birth-hour', localStorage.getItem('birth-hour') || hour);
     localStorage.setItem('birth-minute', localStorage.getItem('birth-minute') || minute);
 
-    localStorage.setItem('current-latitude', position.coords.latitude);
-    localStorage.setItem('current-longitude', position.coords.longitude);
-    localStorage.setItem('birth-latitude', localStorage.getItem('birth-latitude') || position.coords.latitude);
-    localStorage.setItem('birth-longitude', localStorage.getItem('birth-longitude') || position.coords.longitude);
+    localStorage.setItem('current-latitude', position.coords.latitude || 36.7854513);
+    localStorage.setItem('current-longitude', position.coords.longitude || -119.9346456);
+    localStorage.setItem('birth-latitude', localStorage.getItem('birth-latitude') || localStorage.getItem('current-latitude'));
+    localStorage.setItem('birth-longitude', localStorage.getItem('birth-longitude') || localStorage.getItem('current-latitude'));
 
     const weather = await getWeather();
+    //console.log(weather)
     localStorage.setItem('birth-place', localStorage.getItem('birth-place') || weather.name + ", " + weather.sys.country);
     document.getElementById('birth-date').value = `${localStorage.getItem('birth-year')}-${String(+localStorage.getItem('birth-month')+1).padStart(2, '0')}-${String(localStorage.getItem('birth-day')).padStart(2, '0')}T${String(localStorage.getItem('birth-hour')).padStart(2, '0')}:${String(localStorage.getItem('birth-minute')).padStart(2, '0')}`;
     document.getElementById('birth-place').value = localStorage.getItem('birth-place');
@@ -33,7 +34,7 @@ export async function renderAstro(position) {
 async function getWeather() {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${localStorage.getItem('current-latitude')}&lon=${localStorage.getItem('current-longitude')}&units=imperial&appid=1356b68f4f9d57c3ee9c6733e41d3e34`);
     const weather = await response.json();
-    document.getElementById('location').textContent = weather.name + " | " + weather.main.feels_like + "°";
+    document.getElementById('location').innerHTML = `${weather.name} | ${weather.main.feels_like}° | <span id="temp-max">${weather.main.temp_max}°</span> | <span id="temp-min">${weather.main.temp_min}°</span>`;
     return weather;
 }
 

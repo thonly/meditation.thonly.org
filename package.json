@@ -4,7 +4,7 @@
   "description": "Meditation Guide",
   "main": "app.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "",
     "build1": "browserify app.mjs -p esmify --s LST > libraries/LST.min.js",
     "build2": "browserify app.js --s Astro > libraries/Astro.min.js"
   },

@@ -18,7 +18,7 @@ const musicOption = document.getElementById('music');
 
 window.startTimer = (element, minutes=0) => {
     clearInterval(timer);
-    timerElement.style.color = 'black';
+    timerElement.style.color = 'green';
     pauseButton.disabled = false;
     stopButton.disabled = false;
     musicOption.disabled = true;
@@ -96,12 +96,12 @@ window.stopTimer = element => {
     playing = false;
     pauseButton.textContent = "Pause";
     document.body.style.backgroundColor = 'white';
-    //timerElement.style.color = 'black';
+    timerElement.style.color = 'black';
     if (ballad) ballad.pause();
 };
 
 window.setBirth = setBirth;
-window.onload = () => navigator.geolocation.getCurrentPosition(position => renderAstro(position));
+window.onload = () => navigator.geolocation.getCurrentPosition(position => renderAstro(position), error => renderAstro({coords: {latitude: null, longitude: null}}));
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
