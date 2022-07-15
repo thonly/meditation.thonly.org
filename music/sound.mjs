@@ -47,7 +47,7 @@ BOLLYWOOD
 */
 
 function playBrahminKiitos() {
-    const ballad = new Audio(`music/bollywood/1.mp3`);
+    const ballad = new Audio(`music/bollywood/2.mp3`);
     ballad.loop = true;
     ballad.play();
     return ballad;
