@@ -1,5 +1,6 @@
 import { getRandomInteger } from "/utils.mjs";
 
+// https://en.wikipedia.org/wiki/King_Wen_sequence
 const HEXAGRAMS = [
     {
         figure: "䷀",
@@ -182,208 +183,208 @@ const HEXAGRAMS = [
         meaning: "The Clinging, Fire"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷞",
+        chinese: "咸",
+        english: "xián",
+        meaning: "Influence (Wooing)"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷟",
+        chinese: "恆",
+        english: "héng",
+        meaning: "Duration"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷠",
+        chinese: "遯",
+        english: "dùn",
+        meaning: "Retreat"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷡",
+        chinese: "大壯",
+        english: "dà zhuàng",
+        meaning: "The Power of the Great"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷢",
+        chinese: "晉",
+        english: "jìn",
+        meaning: "Progress"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷣",
+        chinese: "明夷",
+        english: "míng yí",
+        meaning: "Brilliance Injured"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷤",
+        chinese: "家人",
+        english: "jiā rén",
+        meaning: "The Family (The Clan)"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷥",
+        chinese: "睽",
+        english: "kuí",
+        meaning: "Opposition"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷦",
+        chinese: "蹇",
+        english: "jiǎn",
+        meaning: "Obstruction"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷧",
+        chinese: "解",
+        english: "xiè",
+        meaning: "Deliverance"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷨",
+        chinese: "損",
+        english: "sǔn",
+        meaning: "Decrease"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷩",
+        chinese: "益",
+        english: "yì",
+        meaning: "Increase"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷪",
+        chinese: "夬",
+        english: "guài",
+        meaning: "Break-Through (Resoluteness)"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷫",
+        chinese: "姤",
+        english: "gòu",
+        meaning: "Coming To Meet"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷬",
+        chinese: "萃",
+        english: "cuì",
+        meaning: "Gathering Together (Massing)"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷭",
+        chinese: "升",
+        english: "shēng",
+        meaning: "Pushing Upward"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷮",
+        chinese: "困",
+        english: "kùn",
+        meaning: "Oppression (Exhaustion)"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷯",
+        chinese: "井",
+        english: "jǐng",
+        meaning: "The Well"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷰",
+        chinese: "革",
+        english: "gé",
+        meaning: "Revolution (Molting)"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷱",
+        chinese: "鼎",
+        english: "dǐng",
+        meaning: "The Cauldron"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷲",
+        chinese: "震",
+        english: "zhèn",
+        meaning: "The Arousing (Shock, Thunder)"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷳",
+        chinese: "艮",
+        english: "gèn",
+        meaning: "Keeping Still, Mountain"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷴",
+        chinese: "漸",
+        english: "jiàn",
+        meaning: "Development (Gradual Progress)"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷵",
+        chinese: "歸妹",
+        english: "guī mèi",
+        meaning: "The Marrying Maiden"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷶",
+        chinese: "豐",
+        english: "fēng",
+        meaning: "Abundance"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷷",
+        chinese: "旅",
+        english: "lǚ",
+        meaning: "The Wanderer"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷸",
+        chinese: "巽",
+        english: "xùn",
+        meaning: "The Gentle (The Penetrating, Wind)"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷹",
+        chinese: "兌",
+        english: "duì",
+        meaning: "The Joyous, Lake"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷺",
+        chinese: "渙",
+        english: "huàn",
+        meaning: "Dispersion (Dissolution)"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷻",
+        chinese: "節",
+        english: "jié",
+        meaning: "Limitation"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷼",
+        chinese: "中孚",
+        english: "zhōng fú",
+        meaning: "Inner Truth"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷽",
+        chinese: "小過",
+        english: "xiǎo guò",
+        meaning: "Preponderance of the Small"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷾",
+        chinese: "既濟",
+        english: "jì jì",
+        meaning: "After Completion"
     },
     {
-        figure: "䷀",
-        chinese: "乾",
-        english: "qián",
-        meaning: "The Creative, Heaven"
+        figure: "䷿",
+        chinese: "未濟",
+        english: "wèi jì",
+        meaning: "Before Completion"
     }
 ];
 
