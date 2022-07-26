@@ -2,6 +2,7 @@ import { getFormattedDuration, getDigitalRoot } from '/utils.mjs';
 import { renderAstro, setBirth } from '/astro/render.mjs';
 import { renderTarot } from '/tarot/render.mjs'; 
 import { renderTao } from '/tao/render.mjs';
+import { renderIChing } from '/iching/render.mjs';
 import { randomColor, playAlarm, playScaleInOrder, playScaleRandom, playMusic } from '/music/sound.mjs';
 
 let timer = null;
@@ -9,7 +10,7 @@ let startButton = null;
 let startTime = null;
 let pauseDuration = null;
 let alarmDuration = null;
-let playing = true;
+let playing = null;
 let ballad = null;
 const timerElement = document.getElementById('timer');
 const pauseButton = document.getElementById('pause');
@@ -30,7 +31,7 @@ window.startTimer = (element, minutes=0) => {
     
     startTime = new Date();
     const numerology = document.getElementById('numerology');
-    numerology.textContent = getDigitalRoot(startTime.getFullYear() + startTime.getMonth() + startTime.getDate() + renderTarot() + renderTao());
+    numerology.textContent = getDigitalRoot(startTime.getFullYear() + startTime.getMonth() + startTime.getDate() + renderTarot() + renderTao() + renderIChing());
     numerology.scrollIntoView({ behavior: "smooth", block: "start", inline: "center" });
     
     ballad = playMusic();
