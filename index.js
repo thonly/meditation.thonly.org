@@ -3,7 +3,7 @@ import { renderAstro, setBirth } from '/astro/render.mjs';
 import { renderTarot } from '/tarot/render.mjs'; 
 import { renderTao } from '/tao/render.mjs';
 import { renderIChing } from '/iching/render.mjs';
-import { randomColor, playAlarm, playScaleInOrder, playScaleRandom, playMusic } from '/music/sound.mjs';
+import { randomColor, playAlarm, playScaleInOrder, playScaleRandom, playMusic, playBrahminKiitos } from '/music/sound.mjs';
 
 let timer = null;
 let startButton = null;
@@ -60,8 +60,8 @@ function runTimer(startTime, alarmDuration) {
             case "uniaural":
                 if (timerDuration < alarmDuration) document.body.style.backgroundColor = alarmDuration < "01:00:00" ? playScaleInOrder() : playScaleRandom();
                 break;
-            case "binaural":
-                if (timerDuration < alarmDuration) document.body.style.backgroundColor = alarmDuration < "01:00:00" ? playScaleInOrder() : playScaleRandom();
+            case "kiitos":
+                if (timerDuration < alarmDuration) document.body.style.backgroundColor = playBrahminKiitos();
                 break;
             default:
                 document.body.style.backgroundColor = randomColor();
