@@ -169,7 +169,7 @@ const TAO =
         <br />
         What does it mean that success is as dangerous as failure?<br />
         Whether you go up the ladder or down it,<br />
-        you position is shaky.<br />
+        your position is shaky.<br />
         When you stand with your two feet on the ground,<br />
         you will always keep your balance.<br />
         <br />
