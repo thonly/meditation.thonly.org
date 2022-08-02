@@ -91,6 +91,7 @@ window.stopTimer = element => {
     //playAlarm();
     clearInterval(timer);
     startButton.disabled = false;
+    startButton = null;
     pauseButton.disabled = true;
     stopButton.disabled = true;
     musicOption.disabled = false;
