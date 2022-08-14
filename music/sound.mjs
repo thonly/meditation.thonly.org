@@ -29,7 +29,7 @@ export function playScaleRandom() {
 }
 
 function playBinaural() {
-    const ballad = new Audio(`music/binaural/${getRandomInteger(1, 1)}.mp3`);
+    const ballad = new Audio(`music/binaural/${getRandomInteger(1, 4)}.m4a`);
     ballad.loop = true;
     ballad.play(); 
     return ballad;
