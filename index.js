@@ -1,3 +1,6 @@
+import "/components/tl-synodic/element.mjs";
+import "/components/tl-sidereal/element.mjs";
+
 import { getFormattedDuration, getDigitalRoot } from '/utils.mjs';
 import { renderAstro, setBirth } from '/astro/render.mjs';
 import { renderTarot } from '/tarot/render.mjs'; 
