@@ -1,3 +1,4 @@
+import "./LST.min.js";
 import template from './template.mjs';
 
 class TlSidereal extends HTMLElement {

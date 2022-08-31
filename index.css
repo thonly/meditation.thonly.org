@@ -21,14 +21,6 @@ body {
     color: orange;
 }
 
-#synodic {
-    color: indigo;
-}
-
-#sidereal {
-    color: blueviolet;
-}
-
 #numerology {
     margin: 60px;
 }
@@ -47,10 +39,6 @@ img {
     width: clamp(100px, calc(100vw - 2*20px), 500px);
 }
 
-span {
-    font-weight: bold;
-}
-
 aside {
     font-size: 3rem;
     color: blueviolet;
@@ -63,12 +51,4 @@ a {
 
 #pause, #stop {
     text-transform: uppercase;
-}
-
-#temp-max {
-    color: red;
-}
-
-#temp-min {
-    color: lightseagreen;
 }

@@ -3,36 +3,25 @@
         <title>Adam Kadmon</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="logo.png">
-        <link rel="stylesheet" href="index.css">
-        <script src="libraries/LST.min.js"></script>
-        <script src="libraries/Astro.min.js"></script>
-        <script src="libraries/Horoscope.min.js"></script>
+        <link rel="stylesheet" href="index.css">        
+        <script src="components/tl-horoscope/Horoscope.min.js"></script>
         <script src="index.js" type="module"></script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-KMZJNVG8GT"></script>
     </head>
-    <body>
+    <body is="tl-body">
         <header>
             <h1 id="title">Adam Kadmon</h1>
             <section>
-                <h3 id="location"></h3>
-                <h1 id="synodic"></h1>
+                <tl-location></tl-location>
                 <tl-synodic></tl-synodic>
             </section>
-            <section>
-                <input id="birth-date" type="datetime-local" placeholder="Date and Time" />
-                <br />
-                <input id="birth-place" type="search" placeholder="City, Country" />
-                <button onclick="setBirth()">Set Birth</button>
-            </section>
+            <tl-birth></tl-birth>
         </header>
         <main>
-            <figure id="horoscope"></figure>
-            <h1 id="sidereal"></h1>
-            <tl-sidereal></tl-sidereal>
-            <p>Sun: <span id="sun-sign"></span></p>
-            <p>Moon: <span id="moon-sign"></span></p>
-            <p>Earth: <span id="earth-as"></span></p>
-            <p style="display:none">Earth: <span id="earth-mc"></span></p>
+            <tl-horoscope>
+                <figure id="horoscope"></figure>
+                <tl-sidereal></tl-sidereal>
+            </tl-horoscope>
             <aside id="numerology"></aside>
             <h2 id="iching"></h2>
             <figure id="hexagram"></figure>

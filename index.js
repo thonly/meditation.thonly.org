@@ -1,8 +1,11 @@
+import "/components/tl-body/element.mjs";
 import "/components/tl-synodic/element.mjs";
 import "/components/tl-sidereal/element.mjs";
+import "/components/tl-location/element.mjs";
+import "/components/tl-birth/element.mjs";
+import "/components/tl-horoscope/element.mjs";
 
 import { getFormattedDuration, getDigitalRoot } from '/utils.mjs';
-import { renderAstro, setBirth } from '/astro/render.mjs';
 import { renderTarot } from '/tarot/render.mjs'; 
 import { renderTao } from '/tao/render.mjs';
 import { renderIChing } from '/iching/render.mjs';
@@ -104,9 +107,6 @@ window.stopTimer = element => {
     timerElement.style.color = 'black';
     if (ballad) ballad.pause();
 };
-
-window.setBirth = setBirth;
-window.onload = () => navigator.geolocation.getCurrentPosition(position => renderAstro(position), error => renderAstro({coords: {latitude: null, longitude: null}}));
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}

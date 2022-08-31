@@ -3,3 +3,10 @@
 	height: 100%;
 }
 
+#temp-max {
+    color: red;
+}
+
+#temp-min {
+    color: lightseagreen;
+}

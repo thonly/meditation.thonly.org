@@ -5,8 +5,8 @@
   "main": "app.mjs",
   "scripts": {
     "test": "",
-    "build1": "browserify app.mjs -p esmify --s LST > libraries/LST.min.js",
-    "build2": "browserify app.js --s Astro > libraries/Astro.min.js"
+    "build1": "browserify app.mjs -p esmify --s LST > components/tl-sidereal/LST.min.js",
+    "build2": "browserify app.js --s Astro > components/tl-horoscope/Astro.min.js"
   },
   "repository": {
     "type": "git",
