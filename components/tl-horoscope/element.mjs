@@ -2,6 +2,7 @@ import "./Astro.min.js";
 import template from './template.mjs';
 const { Origin, Horoscope } = Astro;
 
+//TODO: later refactor AstroChart to work with web component
 class TlHoroscope extends HTMLElement {
     #timer; 
     #horoscope;
@@ -59,12 +60,14 @@ class TlHoroscope extends HTMLElement {
     }
 
     #natalHoroscope() {
+        const date = new Date(localStorage.getItem('birth-date'));
+
         const origin = new Origin({
-            year: localStorage.getItem('birth-year'),
-            month: localStorage.getItem('birth-month'),
-            date: localStorage.getItem('birth-day'),
-            hour: localStorage.getItem('birth-hour'),
-            minute: localStorage.getItem('birth-minute'),
+            year: date.getFullYear(),
+            month: date.getMonth(),
+            date: date.getDate(),
+            hour: date.getHours(),
+            minute: date.getMinutes(),
             latitude: localStorage.getItem('birth-latitude'), //10.6058073,
             longitude: localStorage.getItem('birth-longitude') //104.1767753
         });

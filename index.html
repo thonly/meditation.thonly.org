@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="logo.png">
         <link rel="stylesheet" href="index.css">        
+        <script src="//unpkg.com/@ungap/custom-elements/es.js"></script>
         <script src="components/tl-horoscope/Horoscope.min.js"></script>
         <script src="index.js" type="module"></script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-KMZJNVG8GT"></script>
@@ -11,10 +12,8 @@
     <body is="tl-body">
         <header>
             <h1 id="title">Adam Kadmon</h1>
-            <section>
-                <tl-location></tl-location>
-                <tl-synodic></tl-synodic>
-            </section>
+            <tl-location></tl-location>
+            <tl-synodic></tl-synodic>
             <tl-birth></tl-birth>
         </header>
         <main>

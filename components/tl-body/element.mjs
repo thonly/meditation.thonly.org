@@ -6,7 +6,7 @@ class TlBody extends HTMLBodyElement {
     constructor() {
         const body = super();
         this.#body = body;
-
+        
         this.synodicElement = this.#body.querySelector('tl-synodic');
         this.siderealElement = this.#body.querySelector('tl-sidereal');
         this.locationElement = this.#body.querySelector('tl-location');
@@ -15,9 +15,9 @@ class TlBody extends HTMLBodyElement {
     }
 
     connectedCallback() {
-        this.#body.addEventListener('tl-location', event => this.initBirth(event.detail.weather));
-        navigator.geolocation.getCurrentPosition(position => this.init(position), error => this.init());
+        window.navigator.geolocation.getCurrentPosition(position => this.init(position), error => this.init());
 
+        this.#body.addEventListener('tl-location', event => this.initBirth(event.detail.place));
         this.#body.addEventListener('tl-birth', event => {
             this.updateBirth(event.detail.date, event.detail.position, event.detail.place);
             this.horoscopeElement.createNatalChart();
@@ -25,35 +25,29 @@ class TlBody extends HTMLBodyElement {
     }
 
     init(position={coords: {latitude: null, longitude: null}}) {
-        if (!localStorage.getItem('current-latitude')) this.updateLocation(position);
-        if (!localStorage.getItem('birth-year')) this.updateBirth();
+        this.updateLocation(position);
+        this.updateBirth();
         this.horoscopeElement.createNatalChart();
         this.start();
     }
 
-    initBirth(weather) {
+    initBirth(place) {
         if (!localStorage.getItem('birth-place')) {
-            localStorage.setItem('birth-place', weather.name + ", " + weather.sys.country);
+            localStorage.setItem('birth-place', place);
             this.birthElement.render();
         }
     }
 
     updateLocation(position) {
-        localStorage.setItem('current-latitude', position.coords.latitude || 36.7854513);
-        localStorage.setItem('current-longitude', position.coords.longitude || -119.9346456);
+        localStorage.setItem('current-latitude', position.coords.latitude || localStorage.getItem('current-latitude') || 36.7854513);
+        localStorage.setItem('current-longitude', position.coords.longitude || localStorage.getItem('current-longitude') || -119.9346456);
     }
 
-    updateBirth(date=new Date(), position={latitude: null, longitude: null}, place=null) {
-        localStorage.setItem('birth-year', date.getFullYear());
-        localStorage.setItem('birth-month', date.getMonth());
-        localStorage.setItem('birth-day', date.getDate());
-        localStorage.setItem('birth-hour', date.getHours());
-        localStorage.setItem('birth-minute', date.getMinutes());
-
+    updateBirth(date=null, position={latitude: null, longitude: null}, place=null) {
+        localStorage.setItem('birth-date', date || localStorage.getItem('birth-date') || new Date().toUTCString());
         localStorage.setItem('birth-latitude', position.latitude || localStorage.getItem('current-latitude'));
         localStorage.setItem('birth-longitude', position.longitude || localStorage.getItem('current-longitude'));
-
-        if (place) localStorage.setItem('birth-place', place);
+        localStorage.setItem('birth-place', place || localStorage.getItem('birth-place') || "");
     }
 
     render() {
