@@ -13,42 +13,10 @@ body {
     transition: background-color 1s ease;
 }
 
-#title {
+h1 {
     color: indigo;
-}
-
-#chapter {
-    color: orange;
-}
-
-#numerology {
-    margin: 60px;
-}
-
-#iching {
-    color: black;
-    margin: 0;
-}
-
-#hexagram {
-    font-size: 200pt;
-    margin: 0;
-}
-
-img {
-    width: clamp(100px, calc(100vw - 2*20px), 500px);
-}
-
-aside {
-    font-size: 3rem;
-    color: blueviolet;
-    font-weight: bold;
 }
 
 a {
     text-decoration-line: none;
-}
-
-#pause, #stop {
-    text-transform: uppercase;
 }

@@ -1,7 +1,5 @@
-import { getRandomInteger } from "/utils.mjs";
-
 // https://en.wikipedia.org/wiki/King_Wen_sequence
-const HEXAGRAMS = [
+export const HEXAGRAMS = [
     {
         figure: "䷀",
         chinese: "乾",
@@ -387,8 +385,3 @@ const HEXAGRAMS = [
         meaning: "Before Completion"
     }
 ];
-
-export default () => {
-    const number = getRandomInteger(0, HEXAGRAMS.length - 1);
-    return { number: number + 1, hexagram: HEXAGRAMS[number]};
-}

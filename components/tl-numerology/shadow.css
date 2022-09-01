@@ -3,3 +3,12 @@
 	height: 100%;
 }
 
+aside {
+    font-size: 3rem;
+    color: blueviolet;
+    font-weight: bold;
+}
+
+#numerology {
+    margin: 60px;
+}

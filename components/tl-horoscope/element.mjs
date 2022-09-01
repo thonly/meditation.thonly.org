@@ -35,8 +35,8 @@ class TlHoroscope extends HTMLElement {
     }
 
     createNatalChart() {
-        const { planets, cusps, As, Ds, Mc, Ic, Sun, Moon, Earth } = this.#natalHoroscope();
-        const transit = this.#transitHoroscope();
+        const { planets, cusps, As, Ds, Mc, Ic, Sun, Moon, Earth } = this.#natalHoroscope;
+        const transit = this.#transitHoroscope;
         
         const element = this.querySelector('#' + this.#id);
         element.replaceChildren();
@@ -50,7 +50,7 @@ class TlHoroscope extends HTMLElement {
     }
     
     #animateTransit() {
-      const { planets, cusps, Sun, Moon, Earth } = this.#transitHoroscope();
+      const { planets, cusps, Sun, Moon, Earth } = this.#transitHoroscope;
       
       this.#horoscope.animate({ planets, cusps }, 1, false, () => {
         //console.log("Animation finished");
@@ -59,7 +59,7 @@ class TlHoroscope extends HTMLElement {
       return { Sun, Moon, Earth };
     }
 
-    #natalHoroscope() {
+    get #natalHoroscope() {
         const date = new Date(localStorage.getItem('birth-date'));
 
         const origin = new Origin({
@@ -86,7 +86,7 @@ class TlHoroscope extends HTMLElement {
         return this.#getHoroscope(horoscope);
     }
 
-    #transitHoroscope() {
+    get #transitHoroscope() {
         const date = new Date();
       
         const origin = new Origin({

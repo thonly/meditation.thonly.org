@@ -3,16 +3,32 @@ class TlBody extends HTMLBodyElement {
     #timer;
     #minutes;
 
+    #synodicElement;
+    #siderealElement;
+    #locationElement;
+    #birthElement;
+    #horoscopeElement;
+
+    #musicElement;
+    #numerologyElement;
+    #tarotElement;
+    #ichingElement;
+    #taoElement;
+
     constructor() {
         const body = super();
         this.#body = body;
-        
-        this.synodicElement = this.#body.querySelector('tl-synodic');
-        this.siderealElement = this.#body.querySelector('tl-sidereal');
-        this.locationElement = this.#body.querySelector('tl-location');
-        this.birthElement = this.#body.querySelector('tl-birth');
-        this.horoscopeElement = this.#body.querySelector('tl-horoscope');
-        this.musicElement = this.#body.querySelector('tl-music');
+        this.#synodicElement = this.#body.querySelector('tl-synodic');
+        this.#siderealElement = this.#body.querySelector('tl-sidereal');
+        this.#locationElement = this.#body.querySelector('tl-location');
+        this.#birthElement = this.#body.querySelector('tl-birth');
+        this.#horoscopeElement = this.#body.querySelector('tl-horoscope');
+        this.#musicElement = this.#body.querySelector('tl-music');
+
+        this.#tarotElement = this.#body.querySelector('tl-tarot');
+        this.#numerologyElement = this.#body.querySelector('tl-numerology');
+        this.#ichingElement = this.#body.querySelector('tl-iching');
+        this.#taoElement = this.#body.querySelector('tl-tao');
     }
 
     connectedCallback() {
@@ -21,7 +37,7 @@ class TlBody extends HTMLBodyElement {
         this.#body.addEventListener('tl-location', event => this.#initBirth(event.detail.place));
         this.#body.addEventListener('tl-birth', event => {
             this.#updateBirth(event.detail.date, event.detail.position, event.detail.place);
-            this.horoscopeElement.createNatalChart();
+            this.#horoscopeElement.createNatalChart();
         });
         this.#body.addEventListener('tl-timer', event => this.#updateMusic(event.detail));
     }
@@ -29,15 +45,15 @@ class TlBody extends HTMLBodyElement {
     #init(position={coords: {latitude: null, longitude: null}}) {
         this.#updateLocation(position);
         this.#updateBirth();
-        this.birthElement.render();
-        this.horoscopeElement.createNatalChart();
+        this.#birthElement.render();
+        this.#horoscopeElement.createNatalChart();
         this.start();
     }
 
     #initBirth(place) {
         if (!localStorage.getItem('birth-place')) {
             localStorage.setItem('birth-place', place);
-            this.birthElement.render();
+            this.#birthElement.render();
         }
     }
 
@@ -56,28 +72,34 @@ class TlBody extends HTMLBodyElement {
     #updateMusic(data) {
         switch (data.event) {
             case "start":
-                this.musicElement.play();
+                this.#musicElement.play();
+                this.#divine();
                 break;
             case "tick":
-                this.musicElement.tick(data.timerDuration, data.alarmDuration);
+                this.#musicElement.tick(data.timerDuration, data.alarmDuration);
                 break;
             case "alarm":
-                this.musicElement.pause();
+                this.#musicElement.pause();
                 break;
             default:
-                this.musicElement[data.event]();
+                this.#musicElement[data.event]();
                 break;
         }
     }
 
+    #divine() {
+        const now = new Date();
+        this.#numerologyElement.render(now.getFullYear(), now.getMonth(), now.getDate(), this.#tarotElement.render(), this.#ichingElement.render(), this.#taoElement.render());
+    }
+
     render() {
-        this.synodicElement.render();
-        this.siderealElement.render();
-        this.horoscopeElement.render();
+        this.#synodicElement.render();
+        this.#siderealElement.render();
+        this.#horoscopeElement.render();
 
         const minutes = new Date().getMinutes();
         if (this.#minutes !== minutes) {
-            this.locationElement.render();
+            this.#locationElement.render();
             this.#minutes = minutes;
         }
     }

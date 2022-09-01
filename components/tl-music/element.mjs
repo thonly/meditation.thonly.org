@@ -60,7 +60,7 @@ class TlMusic extends HTMLElement {
                 if (timerDuration < alarmDuration) document.body.style.backgroundColor = this.#playBrahminKiitos();
                 break;
             default:
-                document.body.style.backgroundColor = this.#randomColor();
+                document.body.style.backgroundColor = this.#randomColor;
                 break;
         }
     }
@@ -107,7 +107,7 @@ class TlMusic extends HTMLElement {
         this.#audio.play();
     }
 
-    #randomColor() {
+    get #randomColor() {
         return `rgb(${this.#getRandomInteger(0, 255)}, ${this.#getRandomInteger(0, 255)}, ${this.#getRandomInteger(0, 255)})`;
     }
 

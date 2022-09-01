@@ -3,3 +3,12 @@
 	height: 100%;
 }
 
+#iching {
+    color: black;
+    margin: 0;
+}
+
+#hexagram {
+    font-size: 200pt;
+    margin: 0;
+}

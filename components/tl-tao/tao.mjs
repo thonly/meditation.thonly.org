@@ -1,6 +1,4 @@
-import { getRandomInteger } from "/utils.mjs";
-
-const TAO = 
+export const TAO = 
 [
     `The Tao that can be told<br />
         is not the eternal Tao<br />
@@ -1286,8 +1284,3 @@ const TAO =
         The Tao nourishes by not forcing.<br />
         By not dominating, the Master leads.`
 ];
-
-export default () => {
-    const number = getRandomInteger(0, TAO.length - 1);
-    return { number: number + 1, chapter: TAO[number]};
-}
