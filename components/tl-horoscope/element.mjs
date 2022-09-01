@@ -19,7 +19,7 @@ class TlHoroscope extends HTMLElement {
     }
 
     render() {
-        const { Sun, Moon, Earth } = this.animateTransit();
+        const { Sun, Moon, Earth } = this.#animateTransit();
         this.shadowRoot.getElementById('sun-sign').textContent = Sun.Sign.label + " in " + Sun.House.label;
         this.shadowRoot.getElementById('moon-sign').textContent = Moon.Sign.label + " in " + Moon.House.label;
         this.shadowRoot.getElementById('earth-as').textContent = Earth.As.Sign.label + " Ascendant";
@@ -49,7 +49,7 @@ class TlHoroscope extends HTMLElement {
         return { natal: { Sun, Moon, Earth }, transit: { Sun: transit.Sun, Moon: transit.Moon, Earth: transit.Earth } };
     }
     
-    animateTransit() {
+    #animateTransit() {
       const { planets, cusps, Sun, Moon, Earth } = this.#transitHoroscope();
       
       this.#horoscope.animate({ planets, cusps }, 1, false, () => {

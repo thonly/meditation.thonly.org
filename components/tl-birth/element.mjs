@@ -8,7 +8,7 @@ class TlBirth extends HTMLElement {
     }
 
     connectedCallback() {
-        this.shadowRoot.getElementById('birth-button').onclick = this.setBirth.bind(this);
+        this.shadowRoot.getElementById('birth-button').onclick = this.#setBirth.bind(this);
         //if (localStorage.getItem('birth-place')) this.render();
     }
 
@@ -18,7 +18,7 @@ class TlBirth extends HTMLElement {
         this.shadowRoot.getElementById('birth-place').value = localStorage.getItem('birth-place') || "Fresno, CA"; // default city is not required bc will get replaced almost immediately
     }
 
-    async setBirth() {
+    async #setBirth() {
         const date = this.shadowRoot.getElementById('birth-date').value;
         const place = this.shadowRoot.getElementById('birth-place');
         

@@ -31,32 +31,9 @@
             <blockquote id="tao"></blockquote>
         </main>
         <footer>
-            <h1 id="timer"></h1>
-            <br />
-            <select id="music">
-                <option value="silence">Silence</option>
-                <option value="alarm">Alarm</option>
-                <optgroup label="Chakras">
-                    <option value="uniaural">Uniaural</option>
-                    <option value="binaural" selected>Binaural</option>
-                </optgroup>
-                <optgroup label="Brahmin">
-                    <option value="kiitos">Kiitos</option>
-                    <option value="thonly">THonly</option>
-                </optgroup>
-            </select>
-            <br />
-            <button onclick="startTimer(this, 0)">Infinity</button>
-            <button id="pause" onclick="pauseTimer(this)" disabled>Pause</button>
-            <button id="stop" onclick="stopTimer(this)" disabled>Stop</button>
-            <br />
-            <button onclick="startTimer(this, 15)">15 Minutes</button>
-            <button onclick="startTimer(this, 30)">30 Minutes</button>
-            <button onclick="startTimer(this, 40)">40 Minutes</button>
-            <br />
-            <button onclick="startTimer(this, 60)">1 Hour</button>
-            <button onclick="startTimer(this, 60*2)">2 Hours</button>
-            <button onclick="startTimer(this, 60*3)">3 Hours</button>
+            <tl-timer>
+                <tl-music></tl-music>
+            </tl-timer>
             <h6><a href="https://thonly.org">THonly™</a></h6>
         </footer>
     </body>
