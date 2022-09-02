@@ -1,8 +1,9 @@
 const template = document.createElement("template");
 
 template.innerHTML = `
-    <link rel="stylesheet" href="components/tl-location/shadow.css">
-    <h3 id="location"></h3>
+    <link rel="stylesheet" href="components/tl-moon/shadow.css">
+    <img id="moon">
+    <p id="phase"></p>
 `;
 
 export default template;

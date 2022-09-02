@@ -14,6 +14,7 @@ class TlBody extends HTMLBodyElement {
     #tarotElement;
     #ichingElement;
     #taoElement;
+    #moonElement;
 
     constructor() {
         const body = super();
@@ -29,6 +30,7 @@ class TlBody extends HTMLBodyElement {
         this.#numerologyElement = this.#body.querySelector('tl-numerology');
         this.#ichingElement = this.#body.querySelector('tl-iching');
         this.#taoElement = this.#body.querySelector('tl-tao');
+        this.#moonElement = this.#body.querySelector('tl-moon');
     }
 
     connectedCallback() {
@@ -87,9 +89,8 @@ class TlBody extends HTMLBodyElement {
         }
     }
 
-    #divine() {
-        const now = new Date();
-        this.#numerologyElement.render(now.getFullYear(), now.getMonth(), now.getDate(), this.#tarotElement.render(), this.#ichingElement.render(), this.#taoElement.render());
+    #divine(date=new Date()) {
+        this.#numerologyElement.render(date.getFullYear(), date.getMonth(), date.getDate(), this.#moonElement.render(date), this.#tarotElement.render(), this.#ichingElement.render(), this.#taoElement.render());
     }
 
     render() {
