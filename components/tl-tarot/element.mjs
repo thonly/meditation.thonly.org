@@ -1,4 +1,5 @@
 import template from './template.mjs';
+import { getRandomInteger } from '/components/tl-body/utils.mjs';
 //https://en.wikipedia.org/wiki/Rider%E2%80%93Waite_tarot_deck
 
 class TlTarot extends HTMLElement {
@@ -25,23 +26,17 @@ class TlTarot extends HTMLElement {
     
     //#FIXME: later use relative path
     get #majorArcana() {
-        const orientation = this.#getRandomInteger(0, 1);
-        const number = this.#getRandomInteger(0, 21);
+        const orientation = getRandomInteger(0, 1);
+        const number = getRandomInteger(0, 21);
         return { orientation, number: orientation ? number: -number, card: `components/tl-tarot/major/${number}.jpeg` };
     }
     
     get #minorArcana() {
-        const orientation = this.#getRandomInteger(0, 1);
+        const orientation = getRandomInteger(0, 1);
         const suits = ['wands', 'pentacles', 'swords', 'cups'];
-        const suit = this.#getRandomInteger(0, 3);
-        const number = this.#getRandomInteger(1, 14);
+        const suit = getRandomInteger(0, 3);
+        const number = getRandomInteger(1, 14);
         return { orientation, number: orientation ? suit + number : -suit-number, card: `components/tl-tarot/minor/${suits[suit]}/${number}.jpeg` };
-    }
-
-    #getRandomInteger(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 }
 

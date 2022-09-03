@@ -1,4 +1,5 @@
 import template from './template.mjs';
+import { getRandomInteger } from '/components/tl-body/utils.mjs';
 import { HEXAGRAMS } from "./hexagrams.mjs";
 
 class TlIching extends HTMLElement {
@@ -17,14 +18,8 @@ class TlIching extends HTMLElement {
     }
 
     get #iching() {
-        const number = this.#getRandomInteger(0, HEXAGRAMS.length - 1);
+        const number = getRandomInteger(0, HEXAGRAMS.length - 1);
         return { number: number + 1, hexagram: HEXAGRAMS[number]};
-    }
-
-    #getRandomInteger(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 }
 

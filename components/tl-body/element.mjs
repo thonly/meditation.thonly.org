@@ -15,6 +15,7 @@ class TlBody extends HTMLBodyElement {
     #ichingElement;
     #taoElement;
     #moonElement;
+    #platonicElement;
 
     constructor() {
         const body = super();
@@ -31,6 +32,7 @@ class TlBody extends HTMLBodyElement {
         this.#ichingElement = this.#body.querySelector('tl-iching');
         this.#taoElement = this.#body.querySelector('tl-tao');
         this.#moonElement = this.#body.querySelector('tl-moon');
+        this.#platonicElement = this.#body.querySelector('tl-platonic');
     }
 
     connectedCallback() {
@@ -83,6 +85,10 @@ class TlBody extends HTMLBodyElement {
             case "alarm":
                 this.#musicElement.pause();
                 break;
+            case "stop":
+                this.#musicElement.stop();
+                this.#platonicElement.stop();
+                break;
             default:
                 this.#musicElement[data.event]();
                 break;
@@ -90,7 +96,7 @@ class TlBody extends HTMLBodyElement {
     }
 
     #divine(date=new Date()) {
-        this.#numerologyElement.render(date.getFullYear(), date.getMonth(), date.getDate(), this.#moonElement.render(date), this.#tarotElement.render(), this.#ichingElement.render(), this.#taoElement.render());
+        this.#numerologyElement.render(date.getFullYear(), date.getMonth(), date.getDate(), this.#moonElement.render(date), this.#tarotElement.render(), this.#ichingElement.render(), this.#taoElement.render(), this.#platonicElement.render());
     }
 
     render() {

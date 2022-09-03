@@ -1,4 +1,5 @@
 import template from './template.mjs';
+import { getRandomInteger } from '/components/tl-body/utils.mjs';
 
 class TlMusic extends HTMLElement {
     #audio;
@@ -67,7 +68,7 @@ class TlMusic extends HTMLElement {
 
     //FIXME: change to relative url? how?
     #playAlarm() {
-        const audio = new Audio(`components/tl-music/alarm/${this.#getRandomInteger(1, 13)}.wav`);
+        const audio = new Audio(`components/tl-music/alarm/${getRandomInteger(1, 13)}.wav`);
         audio.play();
     }
     
@@ -81,40 +82,34 @@ class TlMusic extends HTMLElement {
     
     // C Major Diatonic Scale
     #playScaleRandom() {
-        const note = this.#getRandomInteger(1, 8);
+        const note = getRandomInteger(1, 8);
         const audio = new Audio(`components/tl-music/uniaural/${note}.wav`);
         audio.play();
         return this.#chakras[note - 1];
     }
     
     #playBinaural() {
-        this.#audio = new Audio(`components/tl-music/binaural/${this.#getRandomInteger(1, 4)}.m4a`);
+        this.#audio = new Audio(`components/tl-music/binaural/${getRandomInteger(1, 4)}.m4a`);
         this.#audio.loop = true;
         this.#audio.play();
     }
     
     // Chromatic Scale
     #playBrahminKiitos() {
-        const note = this.#getRandomInteger(40, 56);
+        const note = getRandomInteger(40, 56);
         const audio = new Audio(`components/tl-music/kiitos/0${note}.wav`);
         audio.play();
         return this.#chakras[Math.floor(note/8)];
     }
     
     #playBrahminTHonly() {
-        this.#audio = new Audio(`components/tl-music/thonly/${this.#getRandomInteger(1, 1)}.mp3`);
+        this.#audio = new Audio(`components/tl-music/thonly/${getRandomInteger(1, 1)}.mp3`);
         this.#audio.loop = true;
         this.#audio.play();
     }
 
     get #randomColor() {
-        return `rgb(${this.#getRandomInteger(0, 255)}, ${this.#getRandomInteger(0, 255)}, ${this.#getRandomInteger(0, 255)})`;
-    }
-
-    #getRandomInteger(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1) + min);
+        return `rgb(${getRandomInteger(0, 255)}, ${getRandomInteger(0, 255)}, ${getRandomInteger(0, 255)})`;
     }
 }
 

@@ -12,7 +12,7 @@ import "/components/tl-tarot/element.mjs";
 import "/components/tl-iching/element.mjs";
 import "/components/tl-tao/element.mjs";
 import "/components/tl-moon/element.mjs";
-//import "/components/tl-platonic/element.mjs";
+import "/components/tl-platonic/element.mjs";
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}

@@ -1,6 +1,6 @@
 import template from './template.mjs';
 //https://en.wikipedia.org/wiki/Lunar_phase#:~:text=A%20first%20quarter%20moon%20appears,lowest%20on%20the%20spring%20equinox.
-
+// TODO: later https://codepen.io/brunsnik/pen/DwMmem
 class TlMoon extends HTMLElement {
     constructor() {
         super();

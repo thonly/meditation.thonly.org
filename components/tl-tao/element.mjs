@@ -1,4 +1,5 @@
 import template from './template.mjs';
+import { getRandomInteger } from '/components/tl-body/utils.mjs';
 import { TAO } from "./tao.mjs";
 
 class TlTao extends HTMLElement {
@@ -17,14 +18,8 @@ class TlTao extends HTMLElement {
     }
 
     get #tao() {
-        const number = this.#getRandomInteger(0, TAO.length - 1);
+        const number = getRandomInteger(0, TAO.length - 1);
         return { number: number + 1, chapter: TAO[number]};
-    }
-
-    #getRandomInteger(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 }
 
