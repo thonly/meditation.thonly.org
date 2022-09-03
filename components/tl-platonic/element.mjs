@@ -1,6 +1,6 @@
 import template from './template.mjs';
 import { getRandomInteger } from '/components/tl-body/utils.mjs';
-import { viewBoxWidth, solids, solidsData } from './solid.mjs';
+import { viewBoxWidth, solids } from './solid.mjs';
 
 class TlPlatonic extends HTMLElement {
     #solid;
@@ -13,28 +13,6 @@ class TlPlatonic extends HTMLElement {
         this.shadowRoot.appendChild(template.content.cloneNode(true));
     }
 
-    render() {
-        const solid = getRandomInteger(0, 3);
-        if (this.#solid) this.#solid.style.display = 'none';
-        if (this.#animation) cancelAnimationFrame(this.#animation);
-
-        this.#solid = this.shadowRoot.getElementById(solids[solid].name);
-        this.#solid.style.display = 'block';
-        this.#solid.firstElementChild.style.stroke = solids[solid].color;
-        this.#animation = requestAnimationFrame(this.#animate.bind(this, this.#solid)); // second parameter not necessary but good to know it's possible!
-
-        this.shadowRoot.getElementById('solid').textContent = solids[solid].name;
-        this.shadowRoot.getElementById('solid').style.color = solids[solid].color;
-        this.shadowRoot.getElementById('element').textContent = solids[solid].element;
-        this.shadowRoot.getElementById('element').style.color = solids[solid].color;
-
-        return solid;
-    }
-
-    stop() {
-        cancelAnimationFrame(this.#animation);
-    }
-
     connectedCallback() {
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("viewBox", `-20 -20 ${viewBoxWidth} ${viewBoxWidth}`);        
@@ -45,12 +23,34 @@ class TlPlatonic extends HTMLElement {
         });
     }
 
+    render() {
+        const solid = getRandomInteger(0, 3);
+        if (this.#solid) this.#solid.style.display = 'none';
+        if (this.#animation) cancelAnimationFrame(this.#animation);
+
+        this.#solid = this.shadowRoot.getElementById(solids.meta[solid].name);
+        this.#solid.style.display = 'block';
+        this.#solid.firstElementChild.style.stroke = solids.meta[solid].color;
+        this.#animation = requestAnimationFrame(this.#animate.bind(this, this.#solid)); // second parameter not necessary but good to know it's possible!
+
+        this.shadowRoot.getElementById('solid').textContent = solids.meta[solid].name;
+        this.shadowRoot.getElementById('solid').style.color = solids.meta[solid].color;
+        this.shadowRoot.getElementById('element').textContent = solids.meta[solid].element;
+        this.shadowRoot.getElementById('element').style.color = solids.meta[solid].color;
+
+        return solid;
+    }
+
+    stop() {
+        cancelAnimationFrame(this.#animation);
+    }
+
     #createFaces(name, num) {
         const newPolygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
         newPolygon.setAttribute(
             "points",
-            solidsData[name].faces[num]
-                .map((e) => solidsData[name].vertices[e])
+            solids[name].faces[num]
+                .map((e) => solids[name].vertices[e])
                 .map(([x, y, _z]) => [x, y])
                 .toString()
         );
@@ -60,7 +60,7 @@ class TlPlatonic extends HTMLElement {
     #render(solid) {
         const targetSvg = solid.firstElementChild;
         targetSvg.innerHTML = "";
-        solidsData[solid.id].faces.forEach((_x, i) =>
+        solids[solid.id].faces.forEach((_x, i) =>
             targetSvg.appendChild(this.#createFaces(solid.id, i))
         );
     }
@@ -69,12 +69,12 @@ class TlPlatonic extends HTMLElement {
         const clc = (Math.PI / 180) * deg;
         const cos = Math.cos(clc);
         const sin = Math.sin(clc);
-        solidsData[name].vertices = solidsData[name].vertices.map(([x, y, z]) => [
+        solids[name].vertices = solids[name].vertices.map(([x, y, z]) => [
             x,
             cos * y - sin * z,
             sin * y + cos * z
         ]); // rotate on x axis
-        solidsData[name].vertices = solidsData[name].vertices.map(([x, y, z]) => [
+        solids[name].vertices = solids[name].vertices.map(([x, y, z]) => [
             cos * x - sin * y,
             sin * x + cos * y,
             z

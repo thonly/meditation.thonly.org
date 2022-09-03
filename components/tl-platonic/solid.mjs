@@ -1,11 +1,11 @@
 const viewBoxWidth = 40;
-const solids = [
+const solids = { meta: [
 	{ name: "Tetrahedron", element: "Fire", color: "red" }, 
 	{ name: "Cube", element: "Earth", color: "green" }, 
 	{ name: "Octahedron", element: "Air", color: "yellow" }, 
 	//{ name: "Dodecahedron", element: "Aether", color: "white" }, 
 	{ name: "Icosahedron", element: "Water", color: "blue" }
-];
+]};
 
 const initSolid = (name) => {
 	const v = viewBoxWidth / 4;
@@ -102,14 +102,12 @@ const initSolid = (name) => {
 	return [polyData[name].vertices, polyData[name].faces];
 };
 
-const solidsData = {};
-
-for (const e of solids.map(solid => solid.name)) {
+for (const e of solids.meta.map(solid => solid.name)) {
 	const [vData, fData] = initSolid(e);
-	solidsData[e] = {
+	solids[e] = {
 		vertices: vData,
 		faces: fData
 	};
 }
 
-export { viewBoxWidth, solids, solidsData };
+export { viewBoxWidth, solids };
