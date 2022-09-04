@@ -35,23 +35,8 @@ class TlTimer extends HTMLElement {
         
         this.#startTime = new Date();
         this.#alarmDuration = this.#getFormattedDuration(minutes*60);
-        this.#run(this.#startTime, this.#alarmDuration);
+        this.#run();
         this.dispatchEvent(new CustomEvent("tl-timer", { bubbles: true, composed: true, detail: { event: "start" }}));
-    }
-    
-    #run() {
-        this.#timer = setInterval(() => {
-            const timerDuration = this.#getFormattedDuration((new Date() - this.#startTime) / 1000);
-            this.#timerElement.textContent = timerDuration;
-    
-            if (timerDuration === this.#alarmDuration) {
-                this.#timerElement.style.color = 'red';
-                //this.#startButton.disabled = false;
-                this.dispatchEvent(new CustomEvent("tl-timer", { bubbles: true, composed: true, detail: { event: "alarm" }}));
-            }
-
-            this.dispatchEvent(new CustomEvent("tl-timer", { bubbles: true, composed: true, detail: { event: "tick", timerDuration, alarmDuration: this.#alarmDuration }}));
-        }, 1000);
     }
     
     pause(element) {
@@ -80,6 +65,22 @@ class TlTimer extends HTMLElement {
         this.#pauseButton.textContent = "Pause";
         this.#timerElement.style.color = 'black';
         this.dispatchEvent(new CustomEvent("tl-timer", { bubbles: true, composed: true, detail: { event: "stop" }}));
+    }
+
+    #run() {
+        this.#timer = setInterval(() => {
+            const timerDuration = this.#getFormattedDuration((new Date() - this.#startTime) / 1000);
+            this.#timerElement.textContent = timerDuration;
+    
+            if (timerDuration === this.#alarmDuration) {
+                this.dispatchEvent(new CustomEvent("tl-timer", { bubbles: true, composed: true, detail: { event: "alarm" }}));
+            } else if (timerDuration > this.#alarmDuration) {
+                this.#timerElement.style.color = 'red';
+                //this.#startButton.disabled = false;
+            }
+
+            this.dispatchEvent(new CustomEvent("tl-timer", { bubbles: true, composed: true, detail: { event: "tick", timerDuration, alarmDuration: this.#alarmDuration }}));
+        }, 1000);
     }
 
     #getFormattedDuration(totalSeconds) {
