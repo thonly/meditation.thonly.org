@@ -10,7 +10,6 @@ class TlNumerology extends HTMLElement {
     render(...numbers) {
         const numerology = this.shadowRoot.getElementById('numerology');
         numerology.textContent = this.#getDigitalRoot(numbers.reduce((sum, number) => sum + number));
-        numerology.scrollIntoView({ behavior: "smooth", block: "start", inline: "center" });
     }
 
     #getDigitalRoot(number) {
