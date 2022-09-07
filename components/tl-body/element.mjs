@@ -2,19 +2,20 @@ class TlBody extends HTMLBodyElement {
     #body;
     #timer;
     #minutes;
+    #hours;
 
     #synodicElement;
     #siderealElement;
     #locationElement;
     #birthElement;
     #horoscopeElement;
+    #moonElement;
 
     #musicElement;
     #numerologyElement;
     #tarotElement;
     #ichingElement;
     #taoElement;
-    #moonElement;
     #platonicElement;
 
     constructor() {
@@ -25,13 +26,13 @@ class TlBody extends HTMLBodyElement {
         this.#locationElement = this.#body.querySelector('tl-location');
         this.#birthElement = this.#body.querySelector('tl-birth');
         this.#horoscopeElement = this.#body.querySelector('tl-horoscope');
-        this.#musicElement = this.#body.querySelector('tl-music');
+        this.#moonElement = this.#body.querySelector('tl-moon');
 
+        this.#musicElement = this.#body.querySelector('tl-music');
         this.#tarotElement = this.#body.querySelector('tl-tarot');
         this.#numerologyElement = this.#body.querySelector('tl-numerology');
         this.#ichingElement = this.#body.querySelector('tl-iching');
         this.#taoElement = this.#body.querySelector('tl-tao');
-        this.#moonElement = this.#body.querySelector('tl-moon');
         this.#platonicElement = this.#body.querySelector('tl-platonic');
     }
 
@@ -96,7 +97,7 @@ class TlBody extends HTMLBodyElement {
     }
 
     #divine(date=new Date()) {
-        this.#numerologyElement.render(date.getFullYear(), date.getMonth(), date.getDate(), this.#moonElement.render(date), this.#tarotElement.render(), this.#ichingElement.render(), this.#taoElement.render(), this.#platonicElement.render());
+        this.#numerologyElement.render(date.getFullYear(), date.getMonth(), date.getDate(), this.#tarotElement.render(), this.#ichingElement.render(), this.#taoElement.render(), this.#platonicElement.render());
         this.#numerologyElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "center" });
     }
 
@@ -105,10 +106,17 @@ class TlBody extends HTMLBodyElement {
         this.#siderealElement.render();
         this.#horoscopeElement.render();
 
-        const minutes = new Date().getMinutes();
+        const date = new Date();
+        const minutes = date.getMinutes();
+        const hours = date.getHours();
+
         if (this.#minutes !== minutes) {
             this.#locationElement.render();
             this.#minutes = minutes;
+        }
+        if (this.#hours !== hours) {
+            this.#moonElement.render(date);
+            this.#hours = hours;
         }
     }
 

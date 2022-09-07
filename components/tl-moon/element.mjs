@@ -8,13 +8,11 @@ class TlMoon extends HTMLElement {
         this.shadowRoot.appendChild(template.content.cloneNode(true));
     }
 
-    render(date) {
+    render(date=new Date()) {
         const moon = this.#phase(date.getFullYear(), date.getMonth(), date.getDate());
         this.shadowRoot.getElementById('moon').src = moon.image;
         this.shadowRoot.getElementById('moon').style.display = 'block';
         this.shadowRoot.getElementById('phase').textContent = moon.description;
-
-        return moon.phase;
     }
 
     #phase(year, month, day) {
