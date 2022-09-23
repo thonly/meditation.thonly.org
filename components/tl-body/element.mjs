@@ -1,4 +1,19 @@
 class TlBody extends HTMLBodyElement {
+    #store = {
+        birth: {
+            date: null,
+            place: null,
+            latitude: null,
+            longitude: null
+        },
+        current: {
+            date: new Date(),
+            place: "Fresno, CA",
+            latitude: 36.7484271,
+            longitude: -119.7915444
+        }
+    };
+
     #body;
     #timer;
     #minutes;
@@ -37,48 +52,65 @@ class TlBody extends HTMLBodyElement {
     }
 
     connectedCallback() {
-        navigator.geolocation.getCurrentPosition(position => this.#init(position), error => this.#init());
-
-        this.#body.addEventListener('tl-location', event => this.#initBirth(event.detail.place));
-        this.#body.addEventListener('tl-birth', event => {
-            this.#updateBirth(event.detail.date, event.detail.position, event.detail.place);
-            this.#horoscopeElement.createNatalChart();
-        });
-        this.#body.addEventListener('tl-timer', event => this.#updateMusic(event.detail));
+        this.#connect();
+        navigator.geolocation.getCurrentPosition(position => this.#createStore(position), error => this.#createStore());
     }
 
-    #init(position={coords: {latitude: null, longitude: null}}) {
-        this.#updateLocation(position);
+    #connect() {
+        this.#body.addEventListener('tl-location', event => this.#astroReducer(event.detail));
+        this.#body.addEventListener('tl-birth', event => this.#astroReducer(event.detail));
+        this.#body.addEventListener('tl-timer', event => this.#musicReducer(event.detail));
+    }
+
+    #createStore(position) {
+        this.#updateCurrent(position)
         this.#updateBirth();
-        this.#birthElement.render();
-        this.#horoscopeElement.createNatalChart();
+        this.#birthElement.render(this.#store.birth);
+        this.#horoscopeElement.createNatalChart(this.#store);
         this.start();
     }
 
-    #initBirth(place) {
-        if (!localStorage.getItem('birth-place')) {
-            localStorage.setItem('birth-place', place);
-            this.#birthElement.render();
-        }
-    }
-
-    #updateLocation(position) {
-        localStorage.setItem('current-latitude', position.coords.latitude || localStorage.getItem('current-latitude') || 36.7854513);
-        localStorage.setItem('current-longitude', position.coords.longitude || localStorage.getItem('current-longitude') || -119.9346456);
+    #updateCurrent(position={coords: {latitude: null, longitude: null}}) {
+        this.#store = JSON.parse(localStorage.getItem('store')) || this.#store;
+        this.#store.birth.date = typeof this.#store.birth.date === "string" ? new Date(this.#store.birth.date) : this.#store.birth.date;
+        this.#store.current.date = typeof this.#store.current.date === "string" ? new Date(this.#store.current.date) : this.#store.current.date;
+        this.#store.current.latitude = position.coords.latitude || this.#store.current.latitude;
+        this.#store.current.longitude = position.coords.longitude || this.#store.current.longitude;
     }
 
     #updateBirth(date=null, position={latitude: null, longitude: null}, place=null) {
-        localStorage.setItem('birth-date', date || localStorage.getItem('birth-date') || new Date().toUTCString());
-        localStorage.setItem('birth-latitude', position.latitude || localStorage.getItem('current-latitude'));
-        localStorage.setItem('birth-longitude', position.longitude || localStorage.getItem('current-longitude'));
-        localStorage.setItem('birth-place', place || localStorage.getItem('birth-place') || "");
+        this.#store.birth.date = date || this.#store.birth.date || this.#store.current.date;
+        this.#store.birth.latitude = position.latitude || this.#store.birth.latitude || this.#store.current.latitude;
+        this.#store.birth.longitude = position.longitude || this.#store.birth.longitude || this.#store.current.longitude;
+        this.#store.birth.place = place || this.#store.birth.place || null;
+        localStorage.setItem('store', JSON.stringify(this.#store));
     }
 
-    #updateMusic(data) {
-        switch (data.event) {
+    #astroReducer({ action, data }) {
+        switch (action) {
+            case "place":
+                if (!this.#store.birth.place) {
+                    this.#store.birth.place = data;
+                    this.#birthElement.render(this.#store.birth);
+                }
+                this.#store.current.place = data;
+                localStorage.setItem('store', JSON.stringify(this.#store));
+                break;
+            case "birth":
+                const { date, position, place } = data;
+                this.#updateBirth(date, position, place);
+                this.#horoscopeElement.createNatalChart(this.#store);
+                break;
+        }        
+    }
+
+    #musicReducer({ action, data }) {
+        switch (action) {
             case "start":
+                const date = new Date();
                 this.#musicElement.play();
-                this.#divine();
+                this.#numerologyElement.render(date.getFullYear(), date.getMonth(), date.getDate(), this.#tarotElement.render(), this.#ichingElement.render(), this.#taoElement.render(), this.#platonicElement.render());
+                this.#numerologyElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "center" });
                 break;
             case "tick":
                 this.#musicElement.tick(data.timerDuration, data.alarmDuration);
@@ -91,27 +123,22 @@ class TlBody extends HTMLBodyElement {
                 this.#platonicElement.stop();
                 break;
             default:
-                this.#musicElement[data.event]();
+                this.#musicElement[action]();
                 break;
         }
     }
 
-    #divine(date=new Date()) {
-        this.#numerologyElement.render(date.getFullYear(), date.getMonth(), date.getDate(), this.#tarotElement.render(), this.#ichingElement.render(), this.#taoElement.render(), this.#platonicElement.render());
-        this.#numerologyElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "center" });
-    }
-
     render() {
         this.#synodicElement.render();
-        this.#siderealElement.render();
-        this.#horoscopeElement.render();
+        this.#siderealElement.render(this.#store.current);
+        this.#horoscopeElement.render(this.#store.current);
 
         const date = new Date();
         const minutes = date.getMinutes();
         const hours = date.getHours();
 
         if (this.#minutes !== minutes) {
-            this.#locationElement.render();
+            this.#locationElement.render(this.#store.current);
             this.#minutes = minutes;
         }
         if (this.#hours !== hours) {

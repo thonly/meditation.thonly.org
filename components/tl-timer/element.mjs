@@ -36,7 +36,7 @@ class TlTimer extends HTMLElement {
         this.#startTime = new Date();
         this.#alarmDuration = this.#getFormattedDuration(minutes*60);
         this.#run();
-        this.dispatchEvent(new CustomEvent("tl-timer", { bubbles: true, composed: true, detail: { event: "start" }}));
+        this.#dispatch("start");
     }
     
     pause(element) {
@@ -45,13 +45,13 @@ class TlTimer extends HTMLElement {
             clearInterval(this.#timer);
             this.#playing = false;
             element.textContent = "Resume";
-            this.dispatchEvent(new CustomEvent("tl-timer", { bubbles: true, composed: true, detail: { event: "pause" }}));
+            this.#dispatch("pause");
         } else {
             this.#startTime = new Date() - this.#pauseDuration;
             this.#run();
             this.#playing = true;
             element.textContent = "Pause";
-            this.dispatchEvent(new CustomEvent("tl-timer", { bubbles: true, composed: true, detail: { event: "resume" }}));
+            this.#dispatch("resume");
         }
     }
     
@@ -64,7 +64,7 @@ class TlTimer extends HTMLElement {
         this.#playing = false;
         this.#pauseButton.textContent = "Pause";
         this.#timerElement.style.color = 'black';
-        this.dispatchEvent(new CustomEvent("tl-timer", { bubbles: true, composed: true, detail: { event: "stop" }}));
+        this.#dispatch("stop");
     }
 
     #run() {
@@ -73,13 +73,13 @@ class TlTimer extends HTMLElement {
             this.#timerElement.textContent = timerDuration;
     
             if (timerDuration === this.#alarmDuration) {
-                this.dispatchEvent(new CustomEvent("tl-timer", { bubbles: true, composed: true, detail: { event: "alarm" }}));
+                this.#dispatch("alarm");
             } else if (timerDuration > this.#alarmDuration) {
                 this.#timerElement.style.color = 'red';
                 //this.#startButton.disabled = false;
             }
 
-            this.dispatchEvent(new CustomEvent("tl-timer", { bubbles: true, composed: true, detail: { event: "tick", timerDuration, alarmDuration: this.#alarmDuration }}));
+            this.#dispatch("tick", { timerDuration, alarmDuration: this.#alarmDuration });
         }, 1000);
     }
 
@@ -93,6 +93,10 @@ class TlTimer extends HTMLElement {
         const seconds = String(s).padStart(2, '0');
     
         return `${hours}:${minutes}:${seconds}`;
+    }
+
+    #dispatch(action, data=null) {
+        this.dispatchEvent(new CustomEvent("tl-timer", { bubbles: true, composed: true, detail: { action, data }}));
     }
 }
 

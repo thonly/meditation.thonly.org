@@ -15,7 +15,10 @@ class TlPlatonic extends HTMLElement {
 
     connectedCallback() {
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute("viewBox", `-20 -20 ${viewBoxWidth} ${viewBoxWidth}`);        
+        svg.setAttribute("viewBox", `-20 -20 ${viewBoxWidth} ${viewBoxWidth}`);     
+        //svg.setAttribute("preserveAspectRatio", "xMaxYMax meet"); FIXME: align center
+        //svg.setAttribute("height", "100%");
+        //svg.setAttribute("width", "100%");
 
         [...this.shadowRoot.querySelector('section').children].forEach(solid => {
             solid.appendChild(svg.cloneNode(true));

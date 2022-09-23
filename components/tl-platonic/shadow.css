@@ -12,6 +12,7 @@ section {
 
 figure {
 	display: none;
+	width: 100%;
 }
 
 svg {

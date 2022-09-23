@@ -18,8 +18,9 @@ class TlHoroscope extends HTMLElement {
         //this.start();
     }
 
-    render() {
-        const { Sun, Moon, Earth } = this.#animateTransit();
+    render(current) {
+        current.date = new Date();
+        const { Sun, Moon, Earth } = this.#animateTransit(current);
         this.shadowRoot.getElementById('sun-sign').textContent = Sun.Sign.label + " in " + Sun.House.label;
         this.shadowRoot.getElementById('moon-sign').textContent = Moon.Sign.label + " in " + Moon.House.label;
         this.shadowRoot.getElementById('earth-as').textContent = Earth.As.Sign.label + " Ascendant";
@@ -34,9 +35,9 @@ class TlHoroscope extends HTMLElement {
         clearInterval(this.#timer);
     }
 
-    createNatalChart() {
-        const { planets, cusps, As, Ds, Mc, Ic, Sun, Moon, Earth } = this.#natalHoroscope;
-        const transit = this.#transitHoroscope;
+    createNatalChart(store) {
+        const { planets, cusps, As, Ds, Mc, Ic, Sun, Moon, Earth } = this.#getHoroscope(store.birth);
+        const transit = this.#getHoroscope(store.current);
         
         const element = this.querySelector('#' + this.#id);
         element.replaceChildren();
@@ -49,27 +50,25 @@ class TlHoroscope extends HTMLElement {
         return { natal: { Sun, Moon, Earth }, transit: { Sun: transit.Sun, Moon: transit.Moon, Earth: transit.Earth } };
     }
     
-    #animateTransit() {
-      const { planets, cusps, Sun, Moon, Earth } = this.#transitHoroscope;
-      
-      this.#horoscope.animate({ planets, cusps }, 1, false, () => {
-        //console.log("Animation finished");
-      });
-    
-      return { Sun, Moon, Earth };
+    #animateTransit(current) {
+        const { planets, cusps, Sun, Moon, Earth } = this.#getHoroscope(current);
+        
+        this.#horoscope.animate({ planets, cusps }, 1, false, () => {
+            //console.log("Animation finished");
+        });
+
+        return { Sun, Moon, Earth };
     }
 
-    get #natalHoroscope() {
-        const date = new Date(localStorage.getItem('birth-date'));
-
+    #getHoroscope({ date, latitude, longitude }) {
         const origin = new Origin({
             year: date.getFullYear(),
             month: date.getMonth(),
             date: date.getDate(),
             hour: date.getHours(),
             minute: date.getMinutes(),
-            latitude: localStorage.getItem('birth-latitude'), //10.6058073,
-            longitude: localStorage.getItem('birth-longitude') //104.1767753
+            latitude, 
+            longitude
         });
       
         const horoscope = new Horoscope({
@@ -83,49 +82,22 @@ class TlHoroscope extends HTMLElement {
             language: 'en'
         });
       
-        return this.#getHoroscope(horoscope);
+        return this.#getData(horoscope);
     }
 
-    get #transitHoroscope() {
-        const date = new Date();
-      
-        const origin = new Origin({
-            year: date.getFullYear(),
-            month: date.getMonth(),
-            date: date.getDate(),
-            hour: date.getHours(),
-            minute: date.getMinutes(),
-            latitude: localStorage.getItem('current-latitude'), //36.7484123,
-            longitude: localStorage.getItem('current-longitude') //-119.7938046
-        });
-      
-        const horoscope = new Horoscope({
-            origin,
-            houseSystem: "whole-sign",
-            zodiac: "tropical",
-            aspectPoints: ['bodies', 'points', 'angles'],
-            aspectWithPoints: ['bodies', 'points', 'angles'],
-            aspectTypes: ["major", "minor"],
-            customOrbs: {},
-            language: 'en'
-        });
-    
-        return this.#getHoroscope(horoscope);
-    }
-
-    #getHoroscope(horoscope) {
+    #getData(horoscope) {
         const data = {};
       
         data.planets = Object.assign(
-          {},
-          ...horoscope._celestialBodies.all.map((body) => {
-            const key = body.key.charAt(0).toUpperCase() + body.key.slice(1);
-            return { [key]: [body.ChartPosition.Ecliptic.DecimalDegrees] };
-          })
+            {},
+            ...horoscope._celestialBodies.all.map((body) => {
+                const key = body.key.charAt(0).toUpperCase() + body.key.slice(1);
+                return { [key]: [body.ChartPosition.Ecliptic.DecimalDegrees] };
+            })
         );
       
         data.cusps = horoscope._houses.map((cusp) => {
-          return cusp.ChartPosition.StartPosition.Ecliptic.DecimalDegrees;
+            return cusp.ChartPosition.StartPosition.Ecliptic.DecimalDegrees;
         });
       
         data.As = [horoscope._ascendant.ChartPosition.Horizon.DecimalDegrees];

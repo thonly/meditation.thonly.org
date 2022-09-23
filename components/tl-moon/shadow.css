@@ -6,4 +6,5 @@
 img {
     width: clamp(100px, calc(100vw - 2*20px), 500px);
 	display: none;
+	margin: auto;
 }

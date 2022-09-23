@@ -11,11 +11,11 @@ class TlSidereal extends HTMLElement {
     }
 
     connectedCallback() {
-        this.start();
+        //this.start();
     }
 
-    render() {
-        this.shadowRoot.getElementById('sidereal').textContent = LST.getLST(localStorage.getItem('current-longitude'));
+    render(current) {
+        this.shadowRoot.getElementById('sidereal').textContent = LST.getLST(current.longitude);
     }
 
     start() {
