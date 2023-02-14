@@ -8,3 +8,7 @@ img {
 	display: none;
 	margin: auto;
 }
+
+p {
+	font-weight: bold;
+}

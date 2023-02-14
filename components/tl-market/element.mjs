@@ -52,10 +52,9 @@ class TlMarket extends HTMLElement {
         const tda = new TDA();
         const data = await tda.getAccount("corporate");
         this.#renderCrypto(await (await fetch(this.#origin + "coinbase")).json());
-        this.#renderMarket(data.market, data.stocks);
+        this.#renderMarket(data.stocks);
         this.#renderStock(data.stocks.ABNB);
 
-        //this.shadowRoot.querySelector('header').style.display = 'block';
         this.shadowRoot.querySelector('main').style.display = 'block';
         this.shadowRoot.querySelector('footer').style.display = 'none';
     }
@@ -67,24 +66,7 @@ class TlMarket extends HTMLElement {
         }
     }
 
-    #renderMarket(market, stocks) {
-        const condition = this.shadowRoot.getElementById('market');
-        const open = this.shadowRoot.getElementById('open');
-        const close = this.shadowRoot.getElementById('close');
-        if (market.isMarketOpen) {
-            condition.textContent = 'Open';
-            open.textContent = new Date(market.equity.EQ.sessionHours.regularMarket[0].start).toLocaleTimeString();
-            close.textContent = new Date(market.equity.EQ.sessionHours.regularMarket[0].end).toLocaleTimeString();
-            condition.style.color = 'green';
-            open.style.color = 'green';
-            close.style.color = 'green';
-        } else {
-            condition.textContent = 'Close';
-            condition.style.color = 'red';
-            open.style.color = 'grey';
-            close.style.color = 'grey';
-        }
-
+    #renderMarket(stocks) {
         INDEXES.forEach(index => {
             if (stocks[index]) {
                 this.shadowRoot.getElementById(index).textContent = formatToDollars(stocks[index].lastPrice);
@@ -95,27 +77,8 @@ class TlMarket extends HTMLElement {
     }
 
     #renderStock(stock) {
-        this.shadowRoot.getElementById('bid-price').textContent = formatToDollars(stock.bidPrice);
-        this.shadowRoot.getElementById('bid-size').textContent = formatToQuantity(stock.bidSize);
-        this.shadowRoot.getElementById('ask-price').textContent = formatToDollars(stock.askPrice);
-        this.shadowRoot.getElementById('ask-size').textContent = formatToQuantity(stock.askSize);
-        this.shadowRoot.getElementById('high-price').textContent = formatToDollars(stock.highPrice);
-        this.shadowRoot.getElementById('low-price').textContent = formatToDollars(stock.lowPrice);
-
-        this.shadowRoot.getElementById('price').textContent = formatToDollars(stock.mark);
-        //this.shadowRoot.getElementById('dollar-price-change').textContent = formatToDollars(stock.markChangeInDouble);
-        //this.shadowRoot.getElementById('percent-price-change').textContent = formatToPercents(stock.markPercentChangeInDouble);
         formatToDollar(this.shadowRoot.getElementById('dollar-price-change'), stock.mark - stock.closePrice);
         formatToPercent(this.shadowRoot.getElementById('percent-price-change'), stock.mark / stock.closePrice * 100 - 100);
-        this.shadowRoot.getElementById('open-price').textContent = formatToDollars(stock.openPrice);
-        this.shadowRoot.getElementById('close-price').textContent = formatToDollars(stock.closePrice);
-        //this.shadowRoot.getElementById('net-change').textContent = formatToDollars(stock.netChange);
-        this.shadowRoot.getElementById('total-volume').textContent = formatToQuantity(stock.totalVolume);
-
-        this.shadowRoot.getElementById('pe-ratio').textContent = stock.peRatio;
-        this.shadowRoot.getElementById('volatility').textContent = stock.volatility;
-        this.shadowRoot.getElementById('52wk-high').textContent = formatToDollars(stock['52WkHigh']);
-        this.shadowRoot.getElementById('52wk-low').textContent = formatToDollars(stock['52WkLow']);
     }
 }
 

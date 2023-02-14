@@ -4,22 +4,10 @@
 	font-size: small;
 }
 
-header, main, footer {
+main, footer {
 	display: none;
 }
 
 legend {
-    font-size: medium;
+    font-size: large;
 }
-
-/*.price {
-    background-color: lightskyblue;
-}
-
-.bid {
-    background-color: lightgreen;
-}
-
-.stats {
-    background-color: lightpink;
-}*/
