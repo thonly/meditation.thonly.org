@@ -23,7 +23,7 @@ template.innerHTML = `
         </fieldset>
         <br>
         <fieldset>
-            <legend>USD Government</legend>
+            <legend>USD Governments</legend>
             <article>
                 <h2>BTC: <span id="BTC-24HR"></span> | <span id="BTC-HL"></span></h2>
                 <h2>ETH: <span id="ETH-24HR"></span> | <span id="ETH-HL"></span></h2>
