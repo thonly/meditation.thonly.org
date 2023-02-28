@@ -61,6 +61,10 @@ class TlMarket extends HTMLElement {
         this.shadowRoot.querySelector('footer').style.display = 'none';
     }
 
+    refresh(button) {
+        this.#render();
+    }
+
     #renderCrypto(cryptos) {
         for (let crypto in cryptos) {
             formatToDollar(this.shadowRoot.getElementById(`${crypto}-24HR`), parseFloat(cryptos[crypto].last) - parseFloat(cryptos[crypto].open));

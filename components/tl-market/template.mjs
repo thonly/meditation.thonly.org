@@ -32,6 +32,8 @@ template.innerHTML = `
                 <!--<h2>SFM: <span id="SFM-dollar"></span> | <span id="SFM-percent"></span></h2>-->
             </article>
         </fieldset>
+        <br>
+        <button onclick="this.getRootNode().host.refresh(this)">Refresh</button>
     </main>
     <footer>
         <button id="connect" onclick="this.getRootNode().host.connect(this)">Get Market Data</button>
