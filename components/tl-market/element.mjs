@@ -1,11 +1,10 @@
+import { ORIGIN } from "https://stocks.thonly.org/global.mjs";
 import TDA from "https://stocks.thonly.org/library/TDA.mjs";
 import { INDEXES } from "https://stocks.thonly.org/library/stocks.mjs";
 import { formatToDollar, formatToPercent, formatToDollars } from "https://stocks.thonly.org/library/utils.mjs";
 import template from './template.mjs';
 
 class TlMarket extends HTMLElement {
-    #origin = window.location.hostname === '127.0.0.1' ? "http://localhost:333/" : "https://stocks.thonly.org/";
-
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
@@ -35,7 +34,7 @@ class TlMarket extends HTMLElement {
     }
 
     async #getCredentials(pin) {
-        const response = await fetch(this.#origin, {
+        const response = await fetch(ORIGIN, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ pin })
@@ -51,7 +50,7 @@ class TlMarket extends HTMLElement {
     async #render() {
         const tda = new TDA();
         const data = await tda.getAccount("corporate");
-        this.#renderCrypto(await (await fetch(this.#origin + "coinbase")).json());
+        this.#renderCrypto(await (await fetch(ORIGIN + "coinbase")).json());
         this.#renderMarket(data.stocks);
         this.#renderStock(data.stocks.ABNB);
 
