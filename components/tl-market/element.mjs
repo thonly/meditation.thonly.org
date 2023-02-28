@@ -5,6 +5,8 @@ import { formatToDollar, formatToPercent, formatToDollars } from "https://stocks
 import template from './template.mjs';
 
 class TlMarket extends HTMLElement {
+    #tda = new TDA();
+
     constructor() {
         super();
         this.attachShadow({ mode: "open" });
@@ -12,10 +14,10 @@ class TlMarket extends HTMLElement {
     }
 
     connectedCallback() {
-        if (localStorage.getItem('credentials')) {
-            this.#render();
-        } else {
+        if (this.#tda.hasExpired()) {
             this.shadowRoot.querySelector('footer').style.display = 'block';
+        } else {
+            this.#render();
         }
     }
 
@@ -48,8 +50,7 @@ class TlMarket extends HTMLElement {
     }
 
     async #render() {
-        const tda = new TDA();
-        const data = await tda.getAccount("corporate");
+        const data = await this.#tda.getAccount("corporate");
         this.#renderCrypto(await (await fetch(ORIGIN + "coinbase")).json());
         this.#renderMarket(data.stocks);
         this.#renderStock(data.stocks.ABNB);
