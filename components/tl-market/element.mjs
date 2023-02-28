@@ -4,7 +4,7 @@ import { formatToDollar, formatToPercent, formatToDollars } from "https://stocks
 import template from './template.mjs';
 
 class TlMarket extends HTMLElement {
-    #origin = "https://stocks.thonly.org/";
+    #origin = window.location.hostname === '127.0.0.1' ? "http://localhost:333/" : "https://stocks.thonly.org/";
 
     constructor() {
         super();
