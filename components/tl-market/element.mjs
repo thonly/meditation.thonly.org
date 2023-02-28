@@ -1,6 +1,6 @@
 import TDA from "https://stocks.thonly.org/library/TDA.mjs";
 import { INDEXES } from "https://stocks.thonly.org/library/stocks.mjs";
-import { formatToDollar, formatToPercent, formatToDollars, formatToQuantity } from "https://stocks.thonly.org/library/utils.mjs";
+import { formatToDollar, formatToPercent, formatToDollars } from "https://stocks.thonly.org/library/utils.mjs";
 import template from './template.mjs';
 
 class TlMarket extends HTMLElement {
