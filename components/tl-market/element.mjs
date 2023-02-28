@@ -44,7 +44,7 @@ class TlMarket extends HTMLElement {
 
         const credentials = await response.json();
         if (credentials.personal) {
-            localStorage.setItem('credentials', JSON.stringify(credentials));
+            sessionStorage.setItem('credentials', JSON.stringify(credentials));
             await this.#render();
         } else await this.connect();
     }
