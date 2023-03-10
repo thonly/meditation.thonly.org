@@ -11,3 +11,12 @@ main, footer {
 legend {
     font-size: large;
 }
+
+ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+li {
+	margin: 10px;
+}

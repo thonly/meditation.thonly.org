@@ -9,7 +9,8 @@ template.innerHTML = `
         <fieldset>
             <legend>Int'l Travel</legend>
             <article>
-                <h2>ABNB: <span id="dollar-price-change"></span> | <span id="percent-price-change"></span></h2>
+                <h2>ABNB: <span id="ABNB-dollar-price-change"></span> | <span id="ABNB-percent-price-change"></span></h2>
+                <h2>TSLA: <span id="TSLA-dollar-price-change"></span> | <span id="TSLA-percent-price-change"></span></h2>
             </article>
         </fieldset>
         <br>
@@ -34,6 +35,12 @@ template.innerHTML = `
         </fieldset>
         <br>
         <button onclick="this.getRootNode().host.refresh(this)">Refresh</button>
+        <ul>
+            <li><a href="https://stocks.thonly.org" target="_blank">TDA</a></li>
+            <li><a href="https://i.thonly.org" target="_blank">Thon</a></li>
+            <li><a href="https://mom.thonly.org" target="_blank">Mom</a></li>
+            <li><a href="https://dad.thonly.org" target="_blank">Dad</a></li>
+        </ul>
     </main>
     <footer>
         <button id="connect" onclick="this.getRootNode().host.connect(this)">Get Market Data</button>

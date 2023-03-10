@@ -55,7 +55,7 @@ class TlMarket extends HTMLElement {
         const data = await this.#tda.getAccount("corporate");
         this.#renderCrypto(await (await fetch(ORIGIN + "coinbase")).json());
         this.#renderMarket(data.stocks);
-        this.#renderStock(data.stocks.ABNB);
+        this.#renderStock([data.stocks.ABNB, data.stocks.TSLA]);
 
         this.shadowRoot.querySelector('main').style.display = 'block';
         this.shadowRoot.querySelector('footer').style.display = 'none';
@@ -82,9 +82,11 @@ class TlMarket extends HTMLElement {
         });
     }
 
-    #renderStock(stock) {
-        formatToDollar(this.shadowRoot.getElementById('dollar-price-change'), stock.mark - stock.closePrice);
-        formatToPercent(this.shadowRoot.getElementById('percent-price-change'), stock.mark / stock.closePrice * 100 - 100);
+    #renderStock(stocks) {
+        stocks.forEach(stock => {
+            formatToDollar(this.shadowRoot.getElementById(`${stock.symbol}-dollar-price-change`), stock.mark - stock.closePrice);
+            formatToPercent(this.shadowRoot.getElementById(`${stock.symbol}-percent-price-change`), stock.mark / stock.closePrice * 100 - 100);
+        });
     }
 }
 

@@ -17,6 +17,7 @@ template.innerHTML = `
         <button onclick="this.getRootNode().host.start(this, 60*2)">2 Hours</button>
         <button onclick="this.getRootNode().host.start(this, 60*3)">3 Hours</button>
     </section>
+    <p><a href="https://player.thonly.org" target="_blank">Music Player</a></p>
 `;
 
 export default template;
